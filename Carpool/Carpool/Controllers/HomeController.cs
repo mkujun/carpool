@@ -39,5 +39,10 @@ namespace Carpool.Controllers
             return View(cars);
         }
 
+        public IActionResult CarSharing()
+        {
+            return View();
+        }
+
     }
 }
