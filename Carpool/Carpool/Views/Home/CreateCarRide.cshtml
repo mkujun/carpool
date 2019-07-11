@@ -1,9 +1,51 @@
-﻿
+﻿@model CarSharing
 @{
     ViewData["Title"] = "CreateCarRide";
 }
 
-<h1>Create Car Ride</h1>
+<div class="card">
+    <div class="card-header">
+        Create car ride
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Ride details</h5>
 
-<p>Section for creating car rides...work in progress...</p>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.StartLocation">Start Location</label>
+                    <input asp-for="@Model.StartLocation" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
 
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.EndLocation">End Location</label>
+                    <input asp-for="@Model.EndLocation" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.StartDate">Start Date</label>
+                    <input asp-for="@Model.StartDate" type="date" asp-format="{0:d}" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.EndDate">End Date</label>
+                    <input asp-for="@Model.EndDate" type="date" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create wild ride!</button>
+
+    </div>
+</div>

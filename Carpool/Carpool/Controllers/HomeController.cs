@@ -44,7 +44,14 @@ namespace Carpool.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CreateCarRide()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCarRide(CarSharing carSharing)
         {
             return View();
         }
