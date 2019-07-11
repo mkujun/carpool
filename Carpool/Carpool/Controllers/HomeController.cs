@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Carpool.Models;
+using Carpool.Interfaces;
 
 namespace Carpool.Controllers
 {
     public class HomeController : Controller
     {
+        private IEmployeeRepository repository;
+
+        public HomeController(IEmployeeRepository repo)
+        {
+            repository = repo;
+        }
+
         public IActionResult Index()
         {
             return View();
