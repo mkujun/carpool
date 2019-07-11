@@ -11,7 +11,10 @@ namespace Carpool.Repositories
     {
         public IEnumerable<Employee> Employees => new List<Employee>
         {
-            new Employee { Id = 1, Name = "Marko", IsDriver = true }
+            new Employee { Id = 1, Name = "John", IsDriver = true },
+            new Employee { Id = 2, Name = "Paul", IsDriver = true },
+            new Employee { Id = 3, Name = "George", IsDriver = true },
+            new Employee { Id = 4, Name = "Ringo", IsDriver = true }
         };
     }
 }

@@ -25,7 +25,9 @@ namespace Carpool.Controllers
 
         public IActionResult Employees()
         {
-            return View();
+            IEnumerable<Employee> employees = repository.Employees;
+
+            return View(employees);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
