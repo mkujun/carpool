@@ -14,7 +14,7 @@ namespace Carpool.Models
             StartDate = startDate;
             EndDate = endDate;
             Car = car;
-            Employee = employees;
+            Employees = employees;
         }
 
         public string StartLocation { get; set; }
@@ -22,6 +22,6 @@ namespace Carpool.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Car Car { get; set; }
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
