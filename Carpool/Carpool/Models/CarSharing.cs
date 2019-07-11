@@ -7,16 +7,21 @@ namespace Carpool.Models
 {
     public class CarSharing
     {
-        public CarSharing()
+        public CarSharing(string startLocation, string endLocation, DateTime startDate, DateTime endDate, Car car, ICollection<Employee> employees)
         {
-            // todo : make data structure which will take a note of cars end employees
+            StartLocation = startLocation;
+            EndLocation = endLocation;
+            StartDate = startDate;
+            EndDate = endDate;
+            Car = car;
+            Employee = employees;
         }
 
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public virtual ICollection<Car> Car { get; set; }
+        public Car Car { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
     }
 }
