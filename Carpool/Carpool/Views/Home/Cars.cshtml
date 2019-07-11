@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Car>
+@{
+    ViewData["Title"] = "List of cars";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>This is list of cars</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-2"><h3>Car type</h3></div>
+        <div class="col-2"><h3>Color</h3></div>
+        <div class="col-2"><h3>Name</h3></div>
+        <div class="col-2"><h3>Number of seats</h3></div>
+        <div class="col-2"><h3>Registration plates</h3></div>
+    </div>
+
+    @foreach (var car in Model)
+    {
+        <div class="row">
+            <div class="col-sm-2">@car.CarType</div>
+            <div class="col-sm-2">@car.Color</div>
+            <div class="col-sm-2">@car.Name</div>
+            <div class="col-sm-2">@car.NumberOfSeats</div>
+            <div class="col-sm-2">@car.Plates</div>
+        </div>
+    }
+</div>

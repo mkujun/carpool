@@ -32,6 +32,13 @@ namespace Carpool.Controllers
             return View(employees);
         }
 
+        public IActionResult Cars()
+        {
+            IEnumerable<Car> cars = carRepository.Cars;
+
+            return View(cars);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
