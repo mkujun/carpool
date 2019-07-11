@@ -11,11 +11,13 @@ namespace Carpool.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository repository;
+        private IEmployeeRepository employeeRepository;
+        private ICarRepository carRepository;
 
-        public HomeController(IEmployeeRepository repo)
+        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo)
         {
-            repository = repo;
+            employeeRepository = employeeRepo;
+            carRepository = carRepo;
         }
 
         public IActionResult Index()
@@ -25,7 +27,7 @@ namespace Carpool.Controllers
 
         public IActionResult Employees()
         {
-            IEnumerable<Employee> employees = repository.Employees;
+            IEnumerable<Employee> employees = employeeRepository.Employees;
 
             return View(employees);
         }

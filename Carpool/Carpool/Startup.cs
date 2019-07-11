@@ -34,6 +34,7 @@ namespace Carpool
             });
 
             services.AddTransient<IEmployeeRepository, FakeEmployeeRepository>();
+            services.AddTransient<ICarRepository, FakeCarRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
