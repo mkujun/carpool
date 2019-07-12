@@ -47,12 +47,16 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult CreateCarRide()
         {
-            return View();
+            // todo : preload cars and employees from repository
+            CarSharing carSharing = new CarSharing(carRepository.Cars, employeeRepository.Employees);
+
+            return View(carSharing);
         }
 
         [HttpPost]
         public IActionResult CreateCarRide(CarSharing carSharing)
         {
+            // todo : return "redirect to action" which will be the list of scheduled rides
             return View();
         }
 
