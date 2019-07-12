@@ -19,13 +19,7 @@ namespace Carpool.Models
             EndLocation = endLocation;
             StartDate = startDate;
             EndDate = endDate;
-            SelectedCar = car;
-            SelectedEmployees = employees;
-        }
-
-        public CarSharing(IEnumerable<Car> cars, IEnumerable<Employee> employees)
-        {
-            Cars = cars;
+            Car = car;
             Employees = employees;
         }
 
@@ -33,11 +27,8 @@ namespace Carpool.Models
         public string EndLocation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public IEnumerable<Car> Cars { get; set; }
+        public Car Car { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
-
         public Car SelectedCar { get; set; }
-        public IEnumerable<Employee> SelectedEmployees { get; set; }
-
     }
 }

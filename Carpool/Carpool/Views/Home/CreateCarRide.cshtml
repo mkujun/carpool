@@ -1,4 +1,4 @@
-﻿@model CarSharing
+﻿@model CarSharingViewModel
 @{
     ViewData["Title"] = "CreateCarRide";
 }
@@ -41,17 +41,10 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-4 mb-3">
-                    <label asp-for="@Model.SelectedCar">Car</label>
-                    <input asp-for="@Model.SelectedCar" type="text" class="form-control" />
+                    <label asp-for="@Model.SelectedCarPlates">Select Car</label>
+                    <select class = "form-control" asp-for="@Model.SelectedCarPlates" asp-items="@(new SelectList(Model.ListOfCars, "Plates", "CarType"))"></select>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
                 <div class="col-md-4 mb-3">
-                    @*@Html.DropDownListFor(Model => Model.SelectedCar, Model.Cars, new { @class = "form-control" })*@
-                    <select asp-for="@Model.SelectedCar" asp-items="@Model.Cars">SElect auto</select>
                 </div>
             </div>
         </div>
