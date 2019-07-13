@@ -47,11 +47,13 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult CreateCarRide()
         {
-            // todo : preload employees from repository like cars
             CarSharingViewModel carSharingViewModel = new CarSharingViewModel();
 
             carSharingViewModel.ListOfCars = new List<Car>();
             carSharingViewModel.ListOfCars = carRepository.Cars.ToList();
+
+            carSharingViewModel.ListOfEmployees = new List<Employee>();
+            carSharingViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
     
             return View(carSharingViewModel);
         }

@@ -18,12 +18,10 @@ namespace Carpool.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-
         public List<Car> ListOfCars { get; set; }
-        public List<SelectListItem> ListOfEmployees { get; set; }
-
+        public List<Employee> ListOfEmployees { get; set; }
 
         public string SelectedCarPlates { get; set; }
-        public IEnumerable<Employee> SelectedEmployees { get; set; }
+        public int SelectedEmployeesId { get; set; }
     }
 }
