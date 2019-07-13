@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Carpool.Models
 {
-    public class CarSharingViewModel
+    public class CreateCarRideViewModel
     {
-        public CarSharingViewModel()
+        public CreateCarRideViewModel()
         {
 
         }
@@ -19,9 +19,7 @@ namespace Carpool.Models
         public DateTime EndDate { get; set; }
 
         public List<Car> ListOfCars { get; set; }
-        public List<Employee> ListOfEmployees { get; set; }
 
         public string SelectedCarPlates { get; set; }
-        public int SelectedEmployeesId { get; set; }
     }
 }

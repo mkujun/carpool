@@ -1,4 +1,4 @@
-﻿@model CarSharingViewModel
+﻿@model CreateCarRideViewModel
 @{
     ViewData["Title"] = "CreateCarRide";
 }
@@ -47,69 +47,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label asp-for="@Model.SelectedEmployeesId">Select employees for the ride</label>
-                    <div class="form-inline">
-                        <select class="form-control mb-2" asp-for="@Model.SelectedEmployeesId" id="employeeId"  asp-items="@(new SelectList(Model.ListOfEmployees, "Id", "Name"))"></select>
-                        <button type="button" id ="addEmployee"class="btn btn-secondary mb-2 mx-2">Add employee to ride</button>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <table class="table col-md-8" id="employeeOnRideTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Employee Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Is driver</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>one</td>
-                        <td>yes</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>two</td>
-                        <td>yes</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>three</td>
-                        <td>no</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>four</td>
-                        <td>no</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
         <button type="button" class="btn btn-primary">Create wild ride!</button>
     }
 
     </div>
 </div>
-
-@section scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#addEmployee").click(function () {
-                $('#employeeOnRideTable').append('<tr><td>my data</td><td>more data</td><td><button class="btnDelete">Delete</td></tr>');
-            });
-            $("#employeeOnRideTable").on("click", ".btnDelete", function () {
-                $(this).closest("tr").remove();
-            });
-        });
-    </script>
-}

@@ -47,19 +47,16 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult CreateCarRide()
         {
-            CarSharingViewModel carSharingViewModel = new CarSharingViewModel();
+            CreateCarRideViewModel createCarRideViewModel = new CreateCarRideViewModel();
 
-            carSharingViewModel.ListOfCars = new List<Car>();
-            carSharingViewModel.ListOfCars = carRepository.Cars.ToList();
+            createCarRideViewModel.ListOfCars = new List<Car>();
+            createCarRideViewModel.ListOfCars = carRepository.Cars.ToList();
 
-            carSharingViewModel.ListOfEmployees = new List<Employee>();
-            carSharingViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
-    
-            return View(carSharingViewModel);
+            return View(createCarRideViewModel);
         }
 
         [HttpPost]
-        public IActionResult CreateCarRide(CarSharingViewModel carSharingViewModel)
+        public IActionResult CreateCarRide(CreateCarRideViewModel carSharingViewModel)
         {
             // todo : return "redirect to action" which will be the list of scheduled rides
             return View();
