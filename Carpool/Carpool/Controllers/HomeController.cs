@@ -56,11 +56,31 @@ namespace Carpool.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCarRide(CreateCarRideViewModel carSharingViewModel)
+        public IActionResult CreateCarRide(CreateCarRideViewModel createCarRideViewModel)
         {
-            // todo : return "redirect to action" which will be the list of scheduled rides
-            return View();
+            // todo : validate createCarRideViewModel
+            PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel(
+                createCarRideViewModel.StartLocation,
+                createCarRideViewModel.EndLocation,
+                createCarRideViewModel.StartDate,
+                createCarRideViewModel.EndDate,
+                createCarRideViewModel.SelectedCarPlates
+                );
+
+            return RedirectToAction("PickPassengers", pickPassengersViewModel);
         }
+
+        [HttpGet]
+        public IActionResult PickPassengers(PickPassengersViewModel pickPassengersViewModel)
+        {
+            pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+
+            return View(pickPassengersViewModel);
+        }
+
+        /*
+        // todo : make json action for posting from PickPassengers action
+        */
 
     }
 }
