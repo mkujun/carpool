@@ -41,19 +41,22 @@
 
 @section scripts {
     <script type="text/javascript">
-        var employeeList = []; // for storing selected employees
+        var employeeList = []; 
 
         var startLocation = @Html.Raw(Json.Serialize(Model.StartLocation));
         var endLocation = @Html.Raw(Json.Serialize(Model.EndLocation));
         var startDate = @Html.Raw(Json.Serialize(Model.StartDate));
         var endDate = @Html.Raw(Json.Serialize(Model.EndDate));
+        var selectedCarPlates = @Html.Raw(Json.Serialize(Model.SelectedCarPlates));
 
         var dataObject = {
             "StartLocation": startLocation,
             "EndLocation": endLocation,
             "StartDate": startDate,
             "EndDate": endDate,
-            "EmployeeList": employeeList
+            "EmployeeList": employeeList,
+            "SelectedCarPlates": selectedCarPlates,
+            "ListOfPassengersIds": employeeList
         };
 
         $(document).ready(function () {
@@ -75,7 +78,6 @@
                     contentType: "application/json; charset=utf-8",
                     url: "SaveRide",
                     data: JSON.stringify(dataObject),
-                    //data: dataObject,
                     error: function (response) {
                         console.log(response.statusText);
                     },

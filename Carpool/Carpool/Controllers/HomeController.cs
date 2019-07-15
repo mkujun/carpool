@@ -13,11 +13,13 @@ namespace Carpool.Controllers
     {
         private IEmployeeRepository employeeRepository;
         private ICarRepository carRepository;
+        private ICarSharingRepository carSharingRepository;
 
-        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo)
+        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo, ICarSharingRepository carSharingRepo)
         {
             employeeRepository = employeeRepo;
             carRepository = carRepo;
+            carSharingRepository = carSharingRepo;
         }
 
         public IActionResult Index()
@@ -81,6 +83,17 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] CarSharing data)
         {
+            // todo : make validation
+            if (carSharingRepository.CarSharings == null)
+            {
+                carSharingRepository.CarSharings = new List<CarSharing>();
+                carSharingRepository.SaveCarSharing(data);
+            }
+            else
+            {
+                carSharingRepository.SaveCarSharing(data);
+            }
+
             return Json(data);
         }
 

@@ -13,22 +13,20 @@ namespace Carpool.Models
 
         }
 
-        public CarSharing(string startLocation, string endLocation, DateTime startDate, DateTime endDate, Car car, ICollection<Employee> employees)
+        public CarSharing(string startLocation, string endLocation, DateTime startDate, DateTime endDate)
         {
             StartLocation = startLocation;
             EndLocation = endLocation;
             StartDate = startDate;
             EndDate = endDate;
-            Car = car;
-            Employees = employees;
         }
 
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public Car Car { get; set; }
-        public IEnumerable<Employee> Employees { get; set; }
-        public Car SelectedCar { get; set; }
+        //public IEnumerable<Employee> Employees { get; set; }
+        public int[] ListOfPassengersIds { get; set; }
+        public string SelectedCarPlates { get; set; }
     }
 }

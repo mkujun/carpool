@@ -8,7 +8,8 @@ namespace Carpool.Interfaces
 {
     public interface ICarSharingRepository
     {
-        IEnumerable<CarSharing> CarSharings { get; }
+        //IEnumerable<CarSharing> CarSharings { get; set; }
+        List<CarSharing> CarSharings { get; set; }
         void SaveCarSharing(CarSharing carSharing);
     }
 }
