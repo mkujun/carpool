@@ -9,5 +9,6 @@ namespace Carpool.Interfaces
     public interface IEmployeeRepository
     {
         IEnumerable<Employee> Employees { get; }
+        bool HasDriverLicense(int[] employeeIds);
     }
 }

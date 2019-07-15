@@ -60,7 +60,6 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CreateCarRide(CreateCarRideViewModel createCarRideViewModel)
         {
-            // todo : validate createCarRideViewModel
             if (ModelState.IsValid)
             {
                 PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel(
@@ -93,11 +92,17 @@ namespace Carpool.Controllers
         public IActionResult SaveRide([FromBody] CarSharing data)
         {
             // todo : make validation
+            // validate number of employees in a car
+
+            // validate if anybody has drivers licence, return json error if not
+            bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
+
             if (carSharingRepository.CarSharings == null)
             {
                 carSharingRepository.CarSharings = new List<CarSharing>();
                 carSharingRepository.SaveCarSharing(data);
             }
+
             else
             {
                 carSharingRepository.SaveCarSharing(data);

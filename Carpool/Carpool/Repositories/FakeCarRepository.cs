@@ -14,5 +14,12 @@ namespace Carpool.Repositories
             new Car { Name = "Mustang", CarType = "Ford Mustang", Color = "Red", NumberOfSeats = 2, Plates = "RI 123-AB" },
             new Car { Name = "Green Skoda", CarType = "Skoda Octavia", Color = "Green", NumberOfSeats = 4, Plates = "RI 312-AC" }
         };
+
+        public Car GetCar(string licensePlates)
+        {
+            Car car = Cars.Where(c => c.Plates == licensePlates).FirstOrDefault();
+
+            return car;
+        }
     }
 }

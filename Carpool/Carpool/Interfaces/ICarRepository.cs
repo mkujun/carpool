@@ -9,5 +9,6 @@ namespace Carpool.Interfaces
     public interface ICarRepository
     {
         IEnumerable<Car> Cars { get; }
+        Car GetCar(string licensePlates);
     }
 }
