@@ -78,9 +78,11 @@ namespace Carpool.Controllers
             return View(pickPassengersViewModel);
         }
 
-        /*
-        // todo : make json action for posting from PickPassengers action
-        */
+        [HttpPost]
+        public IActionResult SaveRide([FromBody] CarSharing data)
+        {
+            return Json(data);
+        }
 
     }
 }
