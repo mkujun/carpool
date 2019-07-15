@@ -12,7 +12,7 @@ namespace Carpool.Models
 
         }
 
-        public PickPassengersViewModel( string startLocation, string endLocation, DateTime startDate, DateTime endDate, string selectedCarPlates)
+        public PickPassengersViewModel( string startLocation, string endLocation, DateTime? startDate, DateTime? endDate, string selectedCarPlates)
         {
             StartLocation = startLocation;
             EndLocation = endLocation;
@@ -23,8 +23,8 @@ namespace Carpool.Models
 
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string SelectedCarPlates { get; set; }
         public int SelectedEmployeesId { get; set; }

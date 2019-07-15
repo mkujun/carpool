@@ -61,15 +61,24 @@ namespace Carpool.Controllers
         public IActionResult CreateCarRide(CreateCarRideViewModel createCarRideViewModel)
         {
             // todo : validate createCarRideViewModel
-            PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel(
-                createCarRideViewModel.StartLocation,
-                createCarRideViewModel.EndLocation,
-                createCarRideViewModel.StartDate,
-                createCarRideViewModel.EndDate,
-                createCarRideViewModel.SelectedCarPlates
-                );
+            if (ModelState.IsValid)
+            {
+                PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel(
+                    createCarRideViewModel.StartLocation,
+                    createCarRideViewModel.EndLocation,
+                    createCarRideViewModel.StartDate,
+                    createCarRideViewModel.EndDate,
+                    createCarRideViewModel.SelectedCarPlates
+                    );
 
-            return RedirectToAction("PickPassengers", pickPassengersViewModel);
+                return RedirectToAction("PickPassengers", pickPassengersViewModel);
+            }
+
+            else
+            {
+                createCarRideViewModel.ListOfCars = carRepository.Cars.ToList();
+                return View(createCarRideViewModel);
+            }
         }
 
         [HttpGet]

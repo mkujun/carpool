@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Carpool.Models
 {
-    public class CreateCarRideViewModel
+    public class CreateCarRideViewModel : IValidatableObject
     {
         public CreateCarRideViewModel()
         {
@@ -15,11 +17,27 @@ namespace Carpool.Models
 
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+
+        [Required(ErrorMessage = "The start date is required.")]
+        public DateTime? StartDate { get; set; }
+
+        [Required(ErrorMessage = "The end date is required.")]
+        public DateTime? EndDate { get; set; }
 
         public List<Car> ListOfCars { get; set; }
 
         public string SelectedCarPlates { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (EndDate < StartDate)
+            {
+                yield return new ValidationResult("End date must be greater than starting date.", new List<string> { "EndDate" });
+            }
+            else
+            {
+
+            }
+        }
     }
 }
