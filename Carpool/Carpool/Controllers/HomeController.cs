@@ -94,8 +94,18 @@ namespace Carpool.Controllers
             // todo : make validation
             // validate number of employees in a car
 
-            // validate if anybody has drivers licence, return json error if not
             bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
+            if (!hasLicense)
+            {
+                data.Error = "None of the empoloyees has a license";
+                return Json(data);
+            }
+
+            bool canFitIntoACar = carRepository.CanFitIntoACar(data.SelectedCarPlates, data.ListOfPassengersIds);
+            if (!canFitIntoACar)
+            {
+                data.Error = "Too many employees in a car!";
+            }
 
             if (carSharingRepository.CarSharings == null)
             {

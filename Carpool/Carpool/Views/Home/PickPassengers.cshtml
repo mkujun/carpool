@@ -69,6 +69,15 @@
             });
 
             $("#employeeOnRideTable").on("click", ".btnDelete", function () {
+
+                var employeeId = $(this).closest("tr").children()[0].innerText;
+
+                for (var i = 0; i < employeeList.length; i++) {
+                    if (employeeList[i] === employeeId) {
+                        employeeList.splice(i, 1);
+                    };
+                };
+
                 $(this).closest("tr").remove();
             });
 
@@ -83,6 +92,9 @@
                     },
                     success: function (response) {
                         console.log(response);
+                        if (response.error != null) {
+                            alert(response.error);
+                        };
                     }
                 });
             });

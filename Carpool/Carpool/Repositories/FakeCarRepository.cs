@@ -15,6 +15,23 @@ namespace Carpool.Repositories
             new Car { Name = "Green Skoda", CarType = "Skoda Octavia", Color = "Green", NumberOfSeats = 4, Plates = "RI 312-AC" }
         };
 
+        public bool CanFitIntoACar(string licensePlates, int[] employeesIds)
+        {
+            Car car = GetCar(licensePlates);
+
+            if(car != null)
+            {
+                if(car.NumberOfSeats < employeesIds.Length)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         public Car GetCar(string licensePlates)
         {
             Car car = Cars.Where(c => c.Plates == licensePlates).FirstOrDefault();

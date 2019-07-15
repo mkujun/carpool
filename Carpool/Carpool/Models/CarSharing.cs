@@ -28,5 +28,6 @@ namespace Carpool.Models
         //public IEnumerable<Employee> Employees { get; set; }
         public int[] ListOfPassengersIds { get; set; }
         public string SelectedCarPlates { get; set; }
+        public string Error { get; set; }
     }
 }
