@@ -63,9 +63,20 @@
             $("#addEmployee").click(function () {
                 var employeeName = $("#employeeId :selected").text(); 
                 var employeeId = $("#employeeId").val();
-                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
 
-                employeeList.push(employeeId);
+                var alreadyOnList = employeeList.find(function (element) {
+                    return element === employeeId;
+                });
+
+                if (alreadyOnList) {
+                    alert("Employee is already on list");
+                }
+                else {
+                    $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+
+                    employeeList.push(employeeId);
+                }
+
             });
 
             $("#employeeOnRideTable").on("click", ".btnDelete", function () {
