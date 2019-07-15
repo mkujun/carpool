@@ -15,7 +15,10 @@ namespace Carpool.Models
 
         }
 
+        [Required(ErrorMessage = "Start location is required.", AllowEmptyStrings = false)]
         public string StartLocation { get; set; }
+
+        [Required(ErrorMessage = "End location is required.", AllowEmptyStrings = false)]
         public string EndLocation { get; set; }
 
         [Required(ErrorMessage = "The start date is required.")]

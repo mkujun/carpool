@@ -17,10 +17,12 @@
                 <div class="col-md-4 mb-3">
                     <label asp-for="@Model.StartLocation">Start Location</label>
                     <input asp-for="@Model.StartLocation" type="text" class="form-control" />
+                    <span asp-validation-for="@Model.StartLocation" class="text-danger"></span>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label asp-for="@Model.EndLocation">End Location</label>
                     <input asp-for="@Model.EndLocation" type="text" class="form-control" />
+                    <span asp-validation-for="@Model.EndLocation" class="text-danger"></span>
                 </div>
             </div>
         </div>
