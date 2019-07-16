@@ -43,31 +43,32 @@ namespace Carpool.Controllers
 
         public IActionResult Carpools()
         {
-            return View();
+            List<TravelPlan> travelPlans = travelPlanRepository.TravelPlans;
+
+            return View(travelPlans);
         }
 
         [HttpGet]
         public IActionResult CreateTravelPlan()
         {
-            CreateTravelPlanViewModel createCarRideViewModel = new CreateTravelPlanViewModel();
+            CreateTravelPlanViewModel createTravelPlanViewModel = new CreateTravelPlanViewModel();
+            createTravelPlanViewModel.ListOfCars = new List<Car>();
+            createTravelPlanViewModel.ListOfCars = carRepository.Cars.ToList();
 
-            createCarRideViewModel.ListOfCars = new List<Car>();
-            createCarRideViewModel.ListOfCars = carRepository.Cars.ToList();
-
-            return View(createCarRideViewModel);
+            return View(createTravelPlanViewModel);
         }
 
         [HttpPost]
-        public IActionResult CreateTravelPlan(CreateTravelPlanViewModel createCarRideViewModel)
+        public IActionResult CreateTravelPlan(CreateTravelPlanViewModel createTravelPlanViewModel)
         {
             if (ModelState.IsValid)
             {
                 PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel(
-                    createCarRideViewModel.StartLocation,
-                    createCarRideViewModel.EndLocation,
-                    createCarRideViewModel.StartDate,
-                    createCarRideViewModel.EndDate,
-                    createCarRideViewModel.SelectedCarPlates
+                    createTravelPlanViewModel.StartLocation,
+                    createTravelPlanViewModel.EndLocation,
+                    createTravelPlanViewModel.StartDate,
+                    createTravelPlanViewModel.EndDate,
+                    createTravelPlanViewModel.SelectedCarPlates
                     );
 
                 return RedirectToAction("PickPassengers", pickPassengersViewModel);
@@ -75,8 +76,9 @@ namespace Carpool.Controllers
 
             else
             {
-                createCarRideViewModel.ListOfCars = carRepository.Cars.ToList();
-                return View(createCarRideViewModel);
+                createTravelPlanViewModel.ListOfCars = carRepository.Cars.ToList();
+
+                return View(createTravelPlanViewModel);
             }
         }
 
@@ -91,10 +93,8 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlan data)
         {
-            // todo : make validation
-            // validate number of employees in a car
-
             bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
+
             if (!hasLicense)
             {
                 data.Error = "None of the empoloyees has a license";
@@ -102,6 +102,7 @@ namespace Carpool.Controllers
             }
 
             bool canFitIntoACar = carRepository.CanFitIntoACar(data.SelectedCarPlates, data.ListOfPassengersIds);
+
             if (!canFitIntoACar)
             {
                 data.Error = "Too many employees in a car!";
