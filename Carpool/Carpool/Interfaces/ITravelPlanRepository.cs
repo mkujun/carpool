@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Carpool.Interfaces
 {
-    public interface ICarSharingRepository
+    public interface ITravelPlanRepository
     {
         //IEnumerable<CarSharing> CarSharings { get; set; }
-        List<CarSharing> CarSharings { get; set; }
-        void SaveCarSharing(CarSharing carSharing);
+        List<TravelPlan> TravelPlans { get; set; }
+        void SaveTravelPlan(TravelPlan carSharing);
     }
 }

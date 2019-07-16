@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Carpool.Models
 {
-    public class CarSharing
+    public class TravelPlan
     {
-        public CarSharing()
+        public TravelPlan()
         {
 
         }
 
-        public CarSharing(string startLocation, string endLocation, DateTime startDate, DateTime endDate)
+        public TravelPlan(string startLocation, string endLocation, DateTime startDate, DateTime endDate)
         {
             StartLocation = startLocation;
             EndLocation = endLocation;

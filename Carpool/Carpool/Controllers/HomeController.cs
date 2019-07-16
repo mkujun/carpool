@@ -13,13 +13,13 @@ namespace Carpool.Controllers
     {
         private IEmployeeRepository employeeRepository;
         private ICarRepository carRepository;
-        private ICarSharingRepository carSharingRepository;
+        private ITravelPlanRepository travelPlanRepository;
 
-        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo, ICarSharingRepository carSharingRepo)
+        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo, ITravelPlanRepository travelPlanRepo)
         {
             employeeRepository = employeeRepo;
             carRepository = carRepo;
-            carSharingRepository = carSharingRepo;
+            travelPlanRepository = travelPlanRepo;
         }
 
         public IActionResult Index()
@@ -41,7 +41,7 @@ namespace Carpool.Controllers
             return View(cars);
         }
 
-        public IActionResult CarSharing()
+        public IActionResult Carpools()
         {
             return View();
         }
@@ -89,7 +89,7 @@ namespace Carpool.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveRide([FromBody] CarSharing data)
+        public IActionResult SaveRide([FromBody] TravelPlan data)
         {
             // todo : make validation
             // validate number of employees in a car
@@ -107,15 +107,15 @@ namespace Carpool.Controllers
                 data.Error = "Too many employees in a car!";
             }
 
-            if (carSharingRepository.CarSharings == null)
+            if (travelPlanRepository.TravelPlans == null)
             {
-                carSharingRepository.CarSharings = new List<CarSharing>();
-                carSharingRepository.SaveCarSharing(data);
+                travelPlanRepository.TravelPlans = new List<TravelPlan>();
+                travelPlanRepository.SaveTravelPlan(data);
             }
 
             else
             {
-                carSharingRepository.SaveCarSharing(data);
+                travelPlanRepository.SaveTravelPlan(data);
             }
 
             return Json(data);
