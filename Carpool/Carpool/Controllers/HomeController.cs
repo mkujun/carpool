@@ -47,9 +47,9 @@ namespace Carpool.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateCarRide()
+        public IActionResult CreateTravelPlan()
         {
-            CreateCarRideViewModel createCarRideViewModel = new CreateCarRideViewModel();
+            CreateTravelPlanViewModel createCarRideViewModel = new CreateTravelPlanViewModel();
 
             createCarRideViewModel.ListOfCars = new List<Car>();
             createCarRideViewModel.ListOfCars = carRepository.Cars.ToList();
@@ -58,7 +58,7 @@ namespace Carpool.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCarRide(CreateCarRideViewModel createCarRideViewModel)
+        public IActionResult CreateTravelPlan(CreateTravelPlanViewModel createCarRideViewModel)
         {
             if (ModelState.IsValid)
             {

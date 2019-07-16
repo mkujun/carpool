@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Carpool.Models
 {
-    public class CreateCarRideViewModel : IValidatableObject
+    public class CreateTravelPlanViewModel : IValidatableObject
     {
-        public CreateCarRideViewModel()
+        public CreateTravelPlanViewModel()
         {
 
         }

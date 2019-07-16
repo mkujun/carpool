@@ -1,16 +1,16 @@
-﻿@model CreateCarRideViewModel
+﻿@model CreateTravelPlanViewModel
 @{
-    ViewData["Title"] = "CreateCarRide";
+    ViewData["Title"] = "CreateTravelPlan";
 }
 
 <div class="card">
     <div class="card-header">
-        Create car ride
+        Create travel plan
     </div>
     <div class="card-body">
-        <h5 class="card-title">Ride details</h5>
+        <h5 class="card-title">Select travel plan details</h5>
 
-    @using (Html.BeginForm("CreateCarRide", "Home", FormMethod.Post))
+    @using (Html.BeginForm("CreateTravelPlan", "Home", FormMethod.Post))
     {
         <div class="form-group">
             <div class="row">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create wild ride!</button>
+        <button type="submit" class="btn btn-primary">Create travel plan</button>
     }
 
     </div>
