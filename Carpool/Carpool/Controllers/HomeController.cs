@@ -118,6 +118,7 @@ namespace Carpool.Controllers
             {
                 travelPlanRepository.SaveTravelPlan(data);
             }
+            // todo : get employees by from their id and add them to List<Employee> SelectedEmployees
 
             return Json(data);
         }

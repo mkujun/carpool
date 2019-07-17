@@ -4,5 +4,29 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<p></p>
 
-<p>List of current car travel plans</p>
+<div class="row">
+    @foreach (var travelPlan in Model)
+    {
+        <div class="card mx-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@travelPlan.StartLocation - @travelPlan.EndLocation</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate - @travelPlan.EndDate</h6>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @foreach (var employee in travelPlan.SelectedEmployees)
+                        {
+                            <li class="list-group-item">@employee.Name</li>
+                        }
+                    </ul>
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+

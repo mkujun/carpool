@@ -12,11 +12,11 @@
 
     <div class="form-group">
         <div class="row">
-            <div class="col-md-4 mb-3">
-                <label asp-for="@Model.SelectedEmployeesId">Select employees for the ride</label>
+            <div class="col-md-6 mb-3">
+                <label asp-for="@Model.SelectedEmployeesId">Select employees for the travel plan</label>
                 <div class="form-inline">
                     <select class="form-control mb-2 col-md-4" asp-for="@Model.SelectedEmployeesId" id="employeeId" asp-items="@(new SelectList(Model.ListOfEmployees, "Id", "Name"))"></select>
-                    <button type="button" id="addEmployee" class="btn btn-secondary mb-2 mx-2">Add employee to ride</button>
+                    <button type="button" id="addEmployee" class="btn btn-secondary mb-2 mx-2">Add employee to car</button>
                 </div>
             </div>
             <div class="col-md-4 mb-3">

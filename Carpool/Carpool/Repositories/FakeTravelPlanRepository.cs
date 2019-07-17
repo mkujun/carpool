@@ -14,9 +14,12 @@ namespace Carpool.Repositories
         public FakeTravelPlanRepository()
         {
             TravelPlans = new List<TravelPlan>();
+            List<Employee> selectedEmployees = new List<Employee>();
+            selectedEmployees.Add(new Employee(3, "Johnny Cash", true));
+            selectedEmployees.Add(new Employee(4, "David Bowie", false));
 
-            TravelPlans.Add(new TravelPlan("Rijeka", "Zagreb", DateTime.Now, DateTime.Today));
-            TravelPlans.Add(new TravelPlan("Crikvenica", "Zagreb", DateTime.Now, DateTime.Today));
+            TravelPlans.Add(new TravelPlan("Rijeka", "Zagreb", DateTime.Now, DateTime.Today, selectedEmployees));
+            TravelPlans.Add(new TravelPlan("Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, selectedEmployees));
         }
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
@@ -47,6 +50,7 @@ namespace Carpool.Repositories
 
         public void SaveTravelPlan(TravelPlan travelPlan)
         {
+            /*
             // todo : finish this adding, find if that car sharing ride is possible...
             TravelPlans.Add(new TravelPlan(
                 travelPlan.StartLocation,
@@ -54,6 +58,7 @@ namespace Carpool.Repositories
                 travelPlan.StartDate,
                 travelPlan.EndDate
                 ));
+            */
         }
 
     }
