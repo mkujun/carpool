@@ -87,7 +87,6 @@ namespace Carpool.Controllers
         {
             TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(id);
 
-            // todo : rename this to "TravelPlanViewModel"...
             EditTravelPlanViewModel editTravelPlanViewModel = new EditTravelPlanViewModel(
                 travelPlan.Id,
                 travelPlan.StartLocation,
