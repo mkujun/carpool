@@ -90,6 +90,13 @@ namespace Carpool.Controllers
             return View(pickPassengersViewModel);
         }
 
+        public RedirectToActionResult DeleteTravelPlan(int id)
+        {
+            travelPlanRepository.DeleteTravelPlan(id);
+
+            return RedirectToAction("Carpools");
+        }
+
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlan data)
         {
