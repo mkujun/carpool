@@ -106,7 +106,10 @@
                         console.log(response);
                         if (response.error != null) {
                             alert(response.error);
-                        };
+                        }
+                        else {
+                            window.location.assign("/Home/Carpools");
+                        }
                     }
                 });
             });

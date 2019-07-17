@@ -113,19 +113,28 @@ namespace Carpool.Controllers
             if (!canFitIntoACar)
             {
                 data.Error = "Too many employees in a car!";
+                return Json(data);
             }
 
+            // if travel plans are empty(null) 
             if (travelPlanRepository.TravelPlans == null)
             {
                 travelPlanRepository.TravelPlans = new List<TravelPlan>();
+
+                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
+
                 travelPlanRepository.SaveTravelPlan(data);
             }
 
             else
             {
+                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
+
                 travelPlanRepository.SaveTravelPlan(data);
+
+                //return RedirectToAction("Carpools");
+                return Json(data);
             }
-            // todo : get employees by from their id and add them to List<Employee> SelectedEmployees
 
             return Json(data);
         }

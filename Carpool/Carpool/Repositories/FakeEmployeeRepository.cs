@@ -17,6 +17,23 @@ namespace Carpool.Repositories
             new Employee { Id = 7, Name = "Ringo Starr", IsDriver = false }
         };
 
+        public List<Employee> GetEmployeesByIds(int[] employeeIds)
+        {
+            List<Employee> employees = new List<Employee>();
+
+            foreach (var employeeId in employeeIds)
+            {
+                Employee employee = Employees.Where(e => e.Id == employeeId).FirstOrDefault();
+
+                if (employee != null)
+                {
+                    employees.Add(employee);
+                }
+            }
+
+            return employees;
+        }
+
         public bool HasDriverLicense(int[] employeeIds)
         {
             foreach (int employeeId in employeeIds)

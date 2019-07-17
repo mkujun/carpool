@@ -50,15 +50,16 @@ namespace Carpool.Repositories
 
         public void SaveTravelPlan(TravelPlan travelPlan)
         {
-            /*
-            // todo : finish this adding, find if that car sharing ride is possible...
+            int travelPlanId = TravelPlans.Last().Id + 1;
+
             TravelPlans.Add(new TravelPlan(
+                travelPlanId,
                 travelPlan.StartLocation,
                 travelPlan.EndLocation,
                 travelPlan.StartDate,
-                travelPlan.EndDate
+                travelPlan.EndDate,
+                travelPlan.SelectedEmployees
                 ));
-            */
         }
 
         public void DeleteTravelPlan(int travelPlanId)

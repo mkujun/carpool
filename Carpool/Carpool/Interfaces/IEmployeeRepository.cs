@@ -10,5 +10,6 @@ namespace Carpool.Interfaces
     {
         IEnumerable<Employee> Employees { get; }
         bool HasDriverLicense(int[] employeeIds);
+        List<Employee> GetEmployeesByIds(int[] employeeIds);
     }
 }
