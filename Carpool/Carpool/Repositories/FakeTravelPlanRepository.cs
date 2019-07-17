@@ -62,6 +62,19 @@ namespace Carpool.Repositories
                 ));
         }
 
+        public void EditTravelPlan(TravelPlan travelPlan)
+        {
+            TravelPlan travelPlanForEdit = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault(); 
+
+            if (travelPlanForEdit != null)
+            {
+                travelPlanForEdit.StartDate = travelPlan.StartDate;
+                travelPlanForEdit.EndDate = travelPlan.EndDate;
+                travelPlanForEdit.StartLocation = travelPlan.StartLocation;
+                travelPlanForEdit.EndLocation = travelPlan.EndLocation;
+            }
+        }
+
         public void DeleteTravelPlan(int travelPlanId)
         {
             TravelPlan travelPlanForDelete = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
@@ -69,6 +82,21 @@ namespace Carpool.Repositories
             if (travelPlanForDelete != null)
             {
                 TravelPlans.Remove(travelPlanForDelete);
+            }
+        }
+
+        public TravelPlan GetTravelPlan(int travelPlanId)
+        {
+            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
+
+            if (travelPlan != null)
+            {
+                return travelPlan;
+            }
+
+            else
+            {
+                return null;
             }
         }
     }

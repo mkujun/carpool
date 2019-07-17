@@ -22,8 +22,7 @@
                     </ul>
                 </p>
                 <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-                @*@Html.ActionLink("Delete travel plan", "DeleteTravelPlan","Home", asp )*@
+                <a asp-controller="Home", asp-action="EditTravelPlan" asp-route-id="@travelPlan.Id">Edit</a>
                 <a asp-controller="Home", asp-action="DeleteTravelPlan" asp-route-id="@travelPlan.Id">Delete</a>
             </div>
         </div>

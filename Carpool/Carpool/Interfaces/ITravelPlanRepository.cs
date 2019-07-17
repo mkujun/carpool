@@ -10,7 +10,9 @@ namespace Carpool.Interfaces
     {
         //IEnumerable<CarSharing> CarSharings { get; set; }
         List<TravelPlan> TravelPlans { get; set; }
-        void SaveTravelPlan(TravelPlan carSharing);
+        void SaveTravelPlan(TravelPlan travelPlan);
+        void EditTravelPlan(TravelPlan travelPlan);
         void DeleteTravelPlan(int travelPlanId);
+        TravelPlan GetTravelPlan(int travelPlanId);
     }
 }
