@@ -42,13 +42,32 @@
 
 @section scripts {
     <script type="text/javascript">
+
         var employeeList = []; 
+
+        // case for editing list of passangers
+        var passangersAddedOnRide = @Html.Raw(Json.Serialize(Model.PassangersAddedOnRide));
+
+        if (passangersAddedOnRide != null) {
+            for (var i = 0; i < passangersAddedOnRide.length; i++) {
+
+                var employeeName = passangersAddedOnRide[i].name;
+                var employeeId = passangersAddedOnRide[i].id;
+
+                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+
+                employeeList.push(employeeId);
+            }
+        }
 
         var startLocation = @Html.Raw(Json.Serialize(Model.StartLocation));
         var endLocation = @Html.Raw(Json.Serialize(Model.EndLocation));
         var startDate = @Html.Raw(Json.Serialize(Model.StartDate));
         var endDate = @Html.Raw(Json.Serialize(Model.EndDate));
         var selectedCarPlates = @Html.Raw(Json.Serialize(Model.SelectedCarPlates));
+        var travelPlanId =  @Html.Raw(Json.Serialize(Model.TravelPlanId));
+
+        console.log(selectedCarPlates);
 
         var dataObject = {
             "StartLocation": startLocation,
@@ -57,10 +76,12 @@
             "EndDate": endDate,
             "EmployeeList": employeeList,
             "SelectedCarPlates": selectedCarPlates,
-            "ListOfPassengersIds": employeeList
+            "ListOfPassengersIds": employeeList,
+            "Id": travelPlanId
         };
 
         $(document).ready(function () {
+
             $("#addEmployee").click(function () {
                 var employeeName = $("#employeeId :selected").text(); 
                 var employeeId = $("#employeeId").val();
@@ -83,9 +104,11 @@
             $("#employeeOnRideTable").on("click", ".btnDelete", function () {
 
                 var employeeId = $(this).closest("tr").children()[0].innerText;
+                console.log(employeeId);
+                console.log(employeeList);
 
                 for (var i = 0; i < employeeList.length; i++) {
-                    if (employeeList[i] === employeeId) {
+                    if (employeeList[i] == employeeId) {
                         employeeList.splice(i, 1);
                     };
                 };

@@ -97,6 +97,7 @@ namespace Carpool.Controllers
                 );
 
             editTravelPlanViewModel.ListOfCars = carRepository.Cars.ToList();
+            editTravelPlanViewModel.SelectedEmployees = travelPlan.SelectedEmployees;
 
             return View(editTravelPlanViewModel);
         }
@@ -112,6 +113,8 @@ namespace Carpool.Controllers
                 travelPlan.EndLocation = editTravelPlanViewModel.EndLocation;
                 travelPlan.StartDate = editTravelPlanViewModel.StartDate;
                 travelPlan.EndDate = editTravelPlanViewModel.EndDate;
+                travelPlan.SelectedCarPlates = editTravelPlanViewModel.SelectedCarPlates;
+                travelPlan.SelectedEmployees = editTravelPlanViewModel.SelectedEmployees;
 
                 travelPlanRepository.EditTravelPlan(travelPlan);
 
@@ -129,9 +132,44 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult PickPassengers(PickPassengersViewModel pickPassengersViewModel)
         {
-            pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+            // todo : pick passangers should differ from creating new ones or editing existing ones!!!
+
+            TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(pickPassengersViewModel.TravelPlanId);
+
+            if (travelPlan != null)
+            {
+                pickPassengersViewModel.StartLocation = travelPlan.StartLocation;
+                pickPassengersViewModel.EndLocation = travelPlan.EndLocation;
+                pickPassengersViewModel.StartDate = travelPlan.StartDate;
+                pickPassengersViewModel.EndDate = travelPlan.EndDate;
+                pickPassengersViewModel.SelectedCarPlates = travelPlan.SelectedCarPlates;
+
+                pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+                pickPassengersViewModel.PassangersAddedOnRide = travelPlan.SelectedEmployees;
+            }
+            else
+            {
+                /*
+                pickPassengersViewModel.StartLocation,
+                pickPassengersViewModel.EndLocation,
+                pickPassengersViewModel.StartDate,
+                pickPassengersViewModel.EndDate,
+                pickPassengersViewModel.SelectedCarPlates;
+
+                */
+                pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+                //pickPassengersViewModel.PassangersAddedOnRide = travelPlan.SelectedEmployees;
+            }
 
             return View(pickPassengersViewModel);
+        }
+
+        public IActionResult EditPassengers(int id)
+        {
+            PickPassengersViewModel pickPassengersViewModel = new PickPassengersViewModel();
+            pickPassengersViewModel.TravelPlanId = id;
+
+            return RedirectToAction("PickPassengers", pickPassengersViewModel);
         }
 
         public RedirectToActionResult DeleteTravelPlan(int id)
@@ -144,6 +182,9 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlan data)
         {
+            // todo : if travel plan exists modify ti
+            // this only adds new one 
+
             bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
 
             if (!hasLicense)
@@ -168,6 +209,18 @@ namespace Carpool.Controllers
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
 
                 travelPlanRepository.SaveTravelPlan(data);
+            }
+
+            if (travelPlanRepository.TravelPlans.Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
+            {
+                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
+
+                // todo : should not go into save!! should go into edit!!! refactor this!!!!
+
+                travelPlanRepository.EditTravelPlan(data);
+
+                //return RedirectToAction("Carpools");
+                return Json(data);
             }
 
             else

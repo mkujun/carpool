@@ -38,6 +38,7 @@ namespace Carpool.Models
         public DateTime EndDate { get; set; }
 
         public List<Car> ListOfCars { get; set; }
+        public List<Employee> SelectedEmployees { get; set; }
 
         public string SelectedCarPlates { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

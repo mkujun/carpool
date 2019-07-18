@@ -29,5 +29,9 @@ namespace Carpool.Models
         public string SelectedCarPlates { get; set; }
         public int SelectedEmployeesId { get; set; }
         public List<Employee> ListOfEmployees { get; set; }
+        //public int[] PassangersAddedOnRide { get; set; }
+        public int TravelPlanId { get; set; }
+
+        public List<Employee> PassangersAddedOnRide { get; set; }
     }
 }

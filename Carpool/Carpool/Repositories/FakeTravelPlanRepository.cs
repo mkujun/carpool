@@ -17,9 +17,11 @@ namespace Carpool.Repositories
             List<Employee> selectedEmployees = new List<Employee>();
             selectedEmployees.Add(new Employee(3, "Johnny Cash", true));
             selectedEmployees.Add(new Employee(4, "David Bowie", false));
+            selectedEmployees.Add(new Employee(1, "John Lennon", true));
 
-            TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", DateTime.Now, DateTime.Today, selectedEmployees));
-            TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, selectedEmployees));
+            TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
+            TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
+            TravelPlans.Add(new TravelPlan(2,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
         }
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
@@ -50,6 +52,7 @@ namespace Carpool.Repositories
 
         public void SaveTravelPlan(TravelPlan travelPlan)
         {
+            // if creating new one...
             int travelPlanId = TravelPlans.Last().Id + 1;
 
             TravelPlans.Add(new TravelPlan(
@@ -58,6 +61,7 @@ namespace Carpool.Repositories
                 travelPlan.EndLocation,
                 travelPlan.StartDate,
                 travelPlan.EndDate,
+                travelPlan.SelectedCarPlates,
                 travelPlan.SelectedEmployees
                 ));
         }
@@ -72,6 +76,8 @@ namespace Carpool.Repositories
                 travelPlanForEdit.EndDate = travelPlan.EndDate;
                 travelPlanForEdit.StartLocation = travelPlan.StartLocation;
                 travelPlanForEdit.EndLocation = travelPlan.EndLocation;
+                travelPlanForEdit.SelectedCarPlates = travelPlan.SelectedCarPlates;
+                travelPlanForEdit.SelectedEmployees = travelPlan.SelectedEmployees;
             }
         }
 

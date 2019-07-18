@@ -17,6 +17,20 @@ namespace Carpool.Repositories
             new Employee { Id = 7, Name = "Ringo Starr", IsDriver = false }
         };
 
+        public int[] GetEmployeeIds(List<Employee> employees)
+        {
+            Employee[] employeeArray = employees.ToArray();
+
+            int[] employeeIds = new int[employeeArray.Length];
+
+            for (int i = 0; i < employeeArray.Length; i++)
+            {
+                employeeIds[i] = employeeArray[i].Id; 
+            }
+
+            return employeeIds;
+        }
+
         public List<Employee> GetEmployeesByIds(int[] employeeIds)
         {
             List<Employee> employees = new List<Employee>();
