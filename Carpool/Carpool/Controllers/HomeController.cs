@@ -80,7 +80,6 @@ namespace Carpool.Controllers
             TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(id);
 
             travelPlan.ListOfCars = carRepository.Cars.ToList();
-            travelPlan.SelectedEmployees = travelPlan.SelectedEmployees;
 
             return View(travelPlan);
         }
@@ -90,6 +89,7 @@ namespace Carpool.Controllers
         {
             if (ModelState.IsValid)
             {
+                travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
                 travelPlanRepository.EditTravelPlan(travelPlan);
 
                 return RedirectToAction("Carpools");
@@ -178,6 +178,7 @@ namespace Carpool.Controllers
             if (travelPlanRepository.TravelPlans.Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
             {
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
+                data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
 
                 // todo : should not go into save!! should go into edit!!! refactor this!!!!
 
@@ -190,6 +191,7 @@ namespace Carpool.Controllers
             else
             {
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
+                data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
 
                 travelPlanRepository.SaveTravelPlan(data);
 

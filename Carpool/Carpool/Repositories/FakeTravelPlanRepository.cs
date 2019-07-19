@@ -79,6 +79,7 @@ namespace Carpool.Repositories
                 travelPlanForEdit.StartLocation = travelPlan.StartLocation;
                 travelPlanForEdit.EndLocation = travelPlan.EndLocation;
                 travelPlanForEdit.SelectedCarPlates = travelPlan.SelectedCarPlates;
+                travelPlanForEdit.SelectedCar = travelPlan.SelectedCar;
 
                 if(travelPlan.SelectedEmployees != null)
                 {
