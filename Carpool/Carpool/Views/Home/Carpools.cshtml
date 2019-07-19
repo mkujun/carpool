@@ -12,7 +12,8 @@
         <div class="card mx-2" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">@travelPlan.StartLocation - @travelPlan.EndLocation</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate - @travelPlan.EndDate</h6>
+                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate.ToShortDateString() - @travelPlan.EndDate.ToShortDateString()</h6>
+                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.SelectedCar.Name</h6>
                 <p class="card-text">
                     <ul class="list-group">
                         @if (travelPlan.SelectedEmployees != null)

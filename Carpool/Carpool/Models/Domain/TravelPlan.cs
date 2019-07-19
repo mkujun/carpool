@@ -14,14 +14,15 @@ namespace Carpool.Models
 
         }
 
-        public TravelPlan(int id, string startLocation, string endLocation, DateTime startDate, DateTime endDate, string selectedCarPlates, List<Employee> selectedEmployees)
+        public TravelPlan(int id, string startLocation, string endLocation, DateTime startDate, DateTime endDate, Car selectedCar, List<Employee> selectedEmployees)
         {
             Id = id;
             StartLocation = startLocation;
             EndLocation = endLocation;
             StartDate = startDate;
             EndDate = endDate;
-            SelectedCarPlates = selectedCarPlates;
+            //SelectedCarPlates = selectedCarPlates;
+            SelectedCar = selectedCar;
             SelectedEmployees = selectedEmployees;
         }
 
@@ -46,6 +47,7 @@ namespace Carpool.Models
         public List<Employee> PassangersAddedOnRide { get; set; }
 
         public string SelectedCarPlates { get; set; }
+        public Car SelectedCar { get; set; }
         public List<Car> ListOfCars { get; set; }
 
         public string Error { get; set; }

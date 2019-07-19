@@ -8,7 +8,6 @@ namespace Carpool.Interfaces
 {
     public interface ITravelPlanRepository
     {
-        //IEnumerable<CarSharing> CarSharings { get; set; }
         List<TravelPlan> TravelPlans { get; set; }
         void SaveTravelPlan(TravelPlan travelPlan);
         void EditTravelPlan(TravelPlan travelPlan);
