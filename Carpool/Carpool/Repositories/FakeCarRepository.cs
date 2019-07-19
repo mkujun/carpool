@@ -12,7 +12,8 @@ namespace Carpool.Repositories
         public IEnumerable<Car> Cars => new List<Car>
         {
             new Car { Name = "Mustang", CarType = "Ford Mustang", Color = "Red", NumberOfSeats = 2, Plates = "RI 123-AB" },
-            new Car { Name = "Green Skoda", CarType = "Skoda Octavia", Color = "Green", NumberOfSeats = 4, Plates = "RI 312-AC" }
+            new Car { Name = "Green Skoda", CarType = "Skoda Octavia", Color = "Green", NumberOfSeats = 4, Plates = "RI 312-AC" },
+            new Car { Name = "Clio", CarType = "Renault Clio", Color = "Yellow", NumberOfSeats = 4, Plates = "ZG 456-PD" }
         };
 
         public bool CanFitIntoACar(string licensePlates, int[] employeesIds)

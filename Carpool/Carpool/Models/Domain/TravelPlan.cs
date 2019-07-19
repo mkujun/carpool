@@ -21,7 +21,6 @@ namespace Carpool.Models
             EndLocation = endLocation;
             StartDate = startDate;
             EndDate = endDate;
-            //SelectedCarPlates = selectedCarPlates;
             SelectedCar = selectedCar;
             SelectedEmployees = selectedEmployees;
         }
@@ -44,7 +43,6 @@ namespace Carpool.Models
         public List<Employee> SelectedEmployees { get; set; }
         public List<Employee> ListOfEmployees { get; set; }
         public int SelectedEmployeesId { get; set; }
-        public List<Employee> PassangersAddedOnRide { get; set; }
 
         public string SelectedCarPlates { get; set; }
         public Car SelectedCar { get; set; }

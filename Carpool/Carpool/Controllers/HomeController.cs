@@ -114,16 +114,16 @@ namespace Carpool.Controllers
                 pickPassengersViewModel.EndLocation = travelPlan.EndLocation;
                 pickPassengersViewModel.StartDate = travelPlan.StartDate;
                 pickPassengersViewModel.EndDate = travelPlan.EndDate;
-                pickPassengersViewModel.SelectedCarPlates = travelPlan.SelectedCarPlates;
+                pickPassengersViewModel.SelectedCarPlates = travelPlan.SelectedCar.Plates;
+                pickPassengersViewModel.SelectedEmployees = travelPlan.SelectedEmployees;
+                pickPassengersViewModel.SelectedCar = travelPlan.SelectedCar;
 
                 pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
-                pickPassengersViewModel.PassangersAddedOnRide = travelPlan.SelectedEmployees;
             }
             else
             {
 
                 pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
-                //pickPassengersViewModel.PassangersAddedOnRide = travelPlan.SelectedEmployees;
             }
 
             return View(pickPassengersViewModel);
