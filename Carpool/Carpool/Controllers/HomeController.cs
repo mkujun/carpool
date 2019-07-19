@@ -146,9 +146,6 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlan data)
         {
-            // todo : if travel plan exists modify ti
-            // this only adds new one 
-
             bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
 
             if (!hasLicense)
@@ -180,11 +177,8 @@ namespace Carpool.Controllers
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
                 data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
 
-                // todo : should not go into save!! should go into edit!!! refactor this!!!!
-
                 travelPlanRepository.EditTravelPlan(data);
 
-                //return RedirectToAction("Carpools");
                 return Json(data);
             }
 
@@ -195,11 +189,9 @@ namespace Carpool.Controllers
 
                 travelPlanRepository.SaveTravelPlan(data);
 
-                //return RedirectToAction("Carpools");
                 return Json(data);
             }
 
-            return Json(data);
         }
 
     }
