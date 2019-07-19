@@ -1,4 +1,4 @@
-﻿@model PickPassengersViewModel
+﻿@model TravelPlan
 @{
     ViewData["Title"] = "PickPassengers";
 }
@@ -65,7 +65,7 @@
         var startDate = @Html.Raw(Json.Serialize(Model.StartDate));
         var endDate = @Html.Raw(Json.Serialize(Model.EndDate));
         var selectedCarPlates = @Html.Raw(Json.Serialize(Model.SelectedCarPlates));
-        var travelPlanId =  @Html.Raw(Json.Serialize(Model.TravelPlanId));
+        var id =  @Html.Raw(Json.Serialize(Model.Id));
 
         console.log(selectedCarPlates);
 
@@ -77,7 +77,7 @@
             "EmployeeList": employeeList,
             "SelectedCarPlates": selectedCarPlates,
             "ListOfPassengersIds": employeeList,
-            "Id": travelPlanId
+            "Id": id
         };
 
         $(document).ready(function () {
@@ -120,7 +120,7 @@
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    url: "SaveRide",
+                    url: "/Home/SaveRide",
                     data: JSON.stringify(dataObject),
                     error: function (response) {
                         console.log(response.statusText);

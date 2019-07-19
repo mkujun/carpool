@@ -15,13 +15,16 @@
                 <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate - @travelPlan.EndDate</h6>
                 <p class="card-text">
                     <ul class="list-group">
-                        @foreach (var employee in travelPlan.SelectedEmployees)
+                        @if (travelPlan.SelectedEmployees != null)
                         {
-                            <li class="list-group-item">@employee.Name</li>
+                            @foreach (var employee in travelPlan.SelectedEmployees)
+                            {
+                                <li class="list-group-item">@employee.Name</li>
+                            }
                         }
                     </ul>
                 </p>
-                <a asp-controller="Home", asp-action="EditPassengers" asp-route-id="@travelPlan.Id">Edit passangers</a>
+                <a asp-controller="Home", asp-action="EditPassengers" asp-route-id="@travelPlan.Id">Edit passengers</a>
                 <a asp-controller="Home", asp-action="EditTravelPlan" asp-route-id="@travelPlan.Id">Edit route</a>
                 <a asp-controller="Home", asp-action="DeleteTravelPlan" asp-route-id="@travelPlan.Id">Delete</a>
             </div>

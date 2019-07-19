@@ -21,7 +21,7 @@ namespace Carpool.Repositories
 
             TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
             TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
-            TravelPlans.Add(new TravelPlan(2,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
+            TravelPlans.Add(new TravelPlan(3,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, "RI 123-AB", selectedEmployees));
         }
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
@@ -77,7 +77,11 @@ namespace Carpool.Repositories
                 travelPlanForEdit.StartLocation = travelPlan.StartLocation;
                 travelPlanForEdit.EndLocation = travelPlan.EndLocation;
                 travelPlanForEdit.SelectedCarPlates = travelPlan.SelectedCarPlates;
-                travelPlanForEdit.SelectedEmployees = travelPlan.SelectedEmployees;
+
+                if(travelPlan.SelectedEmployees != null)
+                {
+                    travelPlanForEdit.SelectedEmployees = travelPlan.SelectedEmployees;
+                }
             }
         }
 
