@@ -95,8 +95,10 @@ namespace Carpool.Controllers
         {
             if (ModelState.IsValid)
             {
+                travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
                 travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
-                travelPlanRepository.EditTravelPlan(travelPlan);
+                //travelPlanRepository.EditTravelPlan(travelPlan);
+                travelPlanRepository.SaveTravelPlan(travelPlan);
 
                 return RedirectToAction("Carpools");
             }

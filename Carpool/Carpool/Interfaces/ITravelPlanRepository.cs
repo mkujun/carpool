@@ -10,7 +10,6 @@ namespace Carpool.Interfaces
     {
         List<TravelPlan> TravelPlans { get; set; }
         void SaveTravelPlan(TravelPlan travelPlan);
-        void EditTravelPlan(TravelPlan travelPlan);
         void DeleteTravelPlan(int travelPlanId);
         TravelPlan GetTravelPlan(int travelPlanId);
         List<Employee> GetSelectedEmployees(int travelPlanId);

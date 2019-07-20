@@ -54,19 +54,14 @@ namespace Carpool.Repositories
 
         public void SaveTravelPlan(TravelPlan travelPlan)
         {
-            // todo : maybe this is not necessary...
             TravelPlan updatedTravelPlan = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault();
+
             updatedTravelPlan.StartDate = travelPlan.StartDate;
             updatedTravelPlan.EndDate = travelPlan.EndDate;
             updatedTravelPlan.StartLocation = travelPlan.StartLocation;
             updatedTravelPlan.EndLocation = travelPlan.EndLocation;
             updatedTravelPlan.SelectedCar = travelPlan.SelectedCar;
             updatedTravelPlan.SelectedEmployees = travelPlan.SelectedEmployees;
-        }
-
-        public void EditTravelPlan(TravelPlan travelPlan)
-        {
-            TravelPlan travelPlanForEdit = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault(); 
         }
 
         public void DeleteTravelPlan(int travelPlanId)
