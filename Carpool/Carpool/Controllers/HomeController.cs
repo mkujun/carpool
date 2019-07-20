@@ -52,6 +52,7 @@ namespace Carpool.Controllers
         public IActionResult CreateTravelPlan()
         {
             TravelPlan travelPlan = new TravelPlan();
+
             travelPlan.ListOfCars = new List<Car>();
             travelPlan.ListOfCars = carRepository.Cars.ToList();
 
@@ -63,6 +64,11 @@ namespace Carpool.Controllers
         {
             if (ModelState.IsValid)
             {
+                travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
+                travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
+                travelPlanRepository.TravelPlans.Add(travelPlan);
+
+                //return RedirectToAction("PickPassengers", travelPlan.Id);
                 return RedirectToAction("PickPassengers", travelPlan);
             }
 
@@ -104,36 +110,24 @@ namespace Carpool.Controllers
         }
 
         [HttpGet]
-        public IActionResult PickPassengers(TravelPlan pickPassengersViewModel)
+        public IActionResult PickPassengers(int id)
         {
-            TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(pickPassengersViewModel.Id);
+            TravelPlan travel = travelPlanRepository.GetTravelPlan(id);
 
-            if (travelPlan != null)
+            if (travel != null)
             {
-                pickPassengersViewModel.StartLocation = travelPlan.StartLocation;
-                pickPassengersViewModel.EndLocation = travelPlan.EndLocation;
-                pickPassengersViewModel.StartDate = travelPlan.StartDate;
-                pickPassengersViewModel.EndDate = travelPlan.EndDate;
-                pickPassengersViewModel.SelectedCarPlates = travelPlan.SelectedCar.Plates;
-                pickPassengersViewModel.SelectedEmployees = travelPlan.SelectedEmployees;
-                pickPassengersViewModel.SelectedCar = travelPlan.SelectedCar;
-
-                pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+                travel.ListOfEmployees = employeeRepository.Employees.ToList();
+                travel.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travel.Id);
+                travel.SelectedCarPlates = travel.SelectedCar.Plates;
             }
             else
             {
+                travel.ListOfEmployees = employeeRepository.Employees.ToList();
 
-                pickPassengersViewModel.ListOfEmployees = employeeRepository.Employees.ToList();
+                // todo : this else may be obsolete... check it...
             }
 
-            return View(pickPassengersViewModel);
-        }
-
-        public IActionResult EditPassengers(int id)
-        {
-            TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(id);
-
-            return RedirectToAction("PickPassengers", travelPlan);
+            return View(travel);
         }
 
         public RedirectToActionResult DeleteTravelPlan(int id)
@@ -177,7 +171,8 @@ namespace Carpool.Controllers
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
                 data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
 
-                travelPlanRepository.EditTravelPlan(data);
+                // travelPlanRepository.EditTravelPlan(data);
+                travelPlanRepository.SaveTravelPlan(data);
 
                 return Json(data);
             }

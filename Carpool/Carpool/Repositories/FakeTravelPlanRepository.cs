@@ -54,38 +54,19 @@ namespace Carpool.Repositories
 
         public void SaveTravelPlan(TravelPlan travelPlan)
         {
-            // if creating new one...
-            int travelPlanId = TravelPlans.Last().Id + 1;
-
-            TravelPlans.Add(new TravelPlan(
-                travelPlanId,
-                travelPlan.StartLocation,
-                travelPlan.EndLocation,
-                travelPlan.StartDate,
-                travelPlan.EndDate,
-                travelPlan.SelectedCar,
-                travelPlan.SelectedEmployees
-                ));
+            // todo : maybe this is not necessary...
+            TravelPlan updatedTravelPlan = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault();
+            updatedTravelPlan.StartDate = travelPlan.StartDate;
+            updatedTravelPlan.EndDate = travelPlan.EndDate;
+            updatedTravelPlan.StartLocation = travelPlan.StartLocation;
+            updatedTravelPlan.EndLocation = travelPlan.EndLocation;
+            updatedTravelPlan.SelectedCar = travelPlan.SelectedCar;
+            updatedTravelPlan.SelectedEmployees = travelPlan.SelectedEmployees;
         }
 
         public void EditTravelPlan(TravelPlan travelPlan)
         {
             TravelPlan travelPlanForEdit = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault(); 
-
-            if (travelPlanForEdit != null)
-            {
-                travelPlanForEdit.StartDate = travelPlan.StartDate;
-                travelPlanForEdit.EndDate = travelPlan.EndDate;
-                travelPlanForEdit.StartLocation = travelPlan.StartLocation;
-                travelPlanForEdit.EndLocation = travelPlan.EndLocation;
-                travelPlanForEdit.SelectedCarPlates = travelPlan.SelectedCarPlates;
-                travelPlanForEdit.SelectedCar = travelPlan.SelectedCar;
-
-                if(travelPlan.SelectedEmployees != null)
-                {
-                    travelPlanForEdit.SelectedEmployees = travelPlan.SelectedEmployees;
-                }
-            }
         }
 
         public void DeleteTravelPlan(int travelPlanId)
@@ -111,6 +92,22 @@ namespace Carpool.Repositories
             {
                 return null;
             }
+        }
+
+        public List<Employee> GetSelectedEmployees(int travelPlanId)
+        {
+            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
+
+            if (travelPlan != null)
+            {
+                return travelPlan.SelectedEmployees;
+            }
+
+            else
+            {
+                return null;
+            }
+
         }
     }
 }
