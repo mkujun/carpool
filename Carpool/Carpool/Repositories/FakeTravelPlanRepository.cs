@@ -19,37 +19,38 @@ namespace Carpool.Repositories
             selectedEmployees.Add(new Employee(4, "David Bowie", false));
             selectedEmployees.Add(new Employee(1, "John Lennon", true));
 
-            Car selectedCar = new Car("Clio", "Renault Clio", "Yellow", "ZG 456-PD", 4);
+            Car clio = new Car("Clio", "Renault Clio", "Yellow", "ZG 456-PD", 4);
+            Car skoda = new Car( "Green Skoda", "Skoda Octavia", "Green", "RI 312-AC" , 4);
 
-            TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", DateTime.Now, DateTime.Today, selectedCar, selectedEmployees));
-            TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, selectedCar, selectedEmployees));
-            TravelPlans.Add(new TravelPlan(3,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, selectedCar, selectedEmployees));
+            TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", new DateTime(2019, 7, 1), new DateTime(2019, 7, 10), clio, selectedEmployees));
+            TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, skoda, selectedEmployees));
+            TravelPlans.Add(new TravelPlan(3,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, clio, selectedEmployees));
         }
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
         {
-            if (TravelPlans != null)
-            {
-                List<TravelPlan> carOnTheRoad = TravelPlans.Where(c => c.SelectedCarPlates == licensePlates).ToList(); 
+            // 1) get the car with list of its rides
+            List<TravelPlan> travelPlansWithSelectedCar = new List<TravelPlan>();
 
-                return true;
-            }
-            else
+            foreach (var travelPlan in TravelPlans)
             {
-                return false;
-            }
-
-            /*
-            if(carAlreadyOnTheRoad)
-            {
-                return true;
+                if(travelPlan.SelectedCar.Plates == licensePlates)
+                {
+                    travelPlansWithSelectedCar.Add(travelPlan);
+                }
             }
 
-            else
+            // 2) foreach element in list check if dates match
+            foreach (var travelPlan in travelPlansWithSelectedCar)
             {
-                return false;
+                // this works if it is between dates
+                if (startDate < travelPlan.EndDate && travelPlan.StartDate < endDate)
+                {
+                    return true;
+                }
             }
-            */
+
+            return false;
         }
 
         public void SaveTravelPlan(TravelPlan travelPlan)

@@ -13,5 +13,6 @@ namespace Carpool.Interfaces
         void DeleteTravelPlan(int travelPlanId);
         TravelPlan GetTravelPlan(int travelPlanId);
         List<Employee> GetSelectedEmployees(int travelPlanId);
+        bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate);
     }
 }

@@ -65,9 +65,11 @@ namespace Carpool.Controllers
             {
                 travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
                 travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
+
+                bool isCarOnRide = travelPlanRepository.IsCarAlreadyOnTheRide(travelPlan.SelectedCarPlates, travelPlan.StartDate, travelPlan.EndDate);
+
                 travelPlanRepository.TravelPlans.Add(travelPlan);
 
-                //return RedirectToAction("PickPassengers", travelPlan.Id);
                 return RedirectToAction("PickPassengers", travelPlan);
             }
 
