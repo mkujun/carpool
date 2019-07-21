@@ -45,7 +45,6 @@
 
         var employeeList = []; 
 
-        // case for editing list of passangers
         var selectedEmployees = @Html.Raw(Json.Serialize(Model.SelectedEmployees));
 
         if (selectedEmployees != null) {
@@ -67,8 +66,6 @@
         var selectedCarPlates = @Html.Raw(Json.Serialize(Model.SelectedCarPlates));
         var id =  @Html.Raw(Json.Serialize(Model.Id));
 
-        console.log(selectedCarPlates);
-
         var dataObject = {
             "StartLocation": startLocation,
             "EndLocation": endLocation,
@@ -87,7 +84,7 @@
                 var employeeId = $("#employeeId").val();
 
                 var alreadyOnList = employeeList.find(function (element) {
-                    return element === employeeId;
+                    return element == employeeId;
                 });
 
                 if (alreadyOnList) {
@@ -104,8 +101,6 @@
             $("#employeeOnRideTable").on("click", ".btnDelete", function () {
 
                 var employeeId = $(this).closest("tr").children()[0].innerText;
-                console.log(employeeId);
-                console.log(employeeList);
 
                 for (var i = 0; i < employeeList.length; i++) {
                     if (employeeList[i] == employeeId) {
@@ -123,10 +118,8 @@
                     url: "/Home/SaveRide",
                     data: JSON.stringify(dataObject),
                     error: function (response) {
-                        console.log(response.statusText);
                     },
                     success: function (response) {
-                        console.log(response);
                         if (response.error != null) {
                             alert(response.error);
                         }
