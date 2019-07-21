@@ -195,5 +195,19 @@ namespace Carpool.Controllers
 
         }
 
+        public IActionResult CarpoolStatistics()
+        {
+            TravelPlanStatisticsViewModel travelPlanStatisticsViewModel = new TravelPlanStatisticsViewModel();
+            travelPlanStatisticsViewModel.TravelPlans = travelPlanRepository.TravelPlans;
+
+            return View(travelPlanStatisticsViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult CarpoolStatistics([FromBody] TravelPlanStatisticsViewModel data)
+        {
+            return View();
+        }
+
     }
 }

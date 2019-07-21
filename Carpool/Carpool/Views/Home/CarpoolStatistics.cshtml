@@ -1,0 +1,51 @@
+﻿@model TravelPlanStatisticsViewModel
+@{
+    ViewData["Title"] = "CarpoolStatistics";
+}
+
+<h1>Carpool Statistics</h1>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="form-inline">
+                <select class="form-control mb-2 col-md-4" asp-for="@Model.MonthId" id="selectedMonth" asp-items="@Model.Months"></select>
+                <button type="button" id="selectMonth" class="btn btn-secondary mb-2 mx-2">Select month for statistics</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row"></div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $("#selectMonth").click(function () {
+            var monthId = $("#selectedMonth").val();
+
+            var dataObject = {
+                "MonthId": monthId
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/Home/CarpoolStatistics",
+                data: JSON.stringify(dataObject),
+                error: function (response) {
+                },
+                success: function (response) {
+                    if (response.error != null) {
+                        alert(response.error);
+                    }
+                    else {
+                        window.location.assign("/Home/CarpoolStatistics");
+                    }
+                }
+            });
+        })
+
+    </script>
+}
+
