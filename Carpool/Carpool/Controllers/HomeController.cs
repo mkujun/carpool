@@ -61,12 +61,17 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CreateTravelPlan(TravelPlan travelPlan)
         {
+            bool isCarOnRide = travelPlanRepository.IsCarAlreadyOnTheRide(travelPlan.SelectedCarPlates, travelPlan.StartDate, travelPlan.EndDate);
+
+            if(isCarOnRide)
+            {
+                ModelState.AddModelError("CarOnTheRide", "");
+            }
+
             if (ModelState.IsValid)
             {
                 travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
                 travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
-
-                bool isCarOnRide = travelPlanRepository.IsCarAlreadyOnTheRide(travelPlan.SelectedCarPlates, travelPlan.StartDate, travelPlan.EndDate);
 
                 travelPlanRepository.TravelPlans.Add(travelPlan);
 
