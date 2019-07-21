@@ -29,7 +29,6 @@ namespace Carpool.Repositories
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
         {
-            // 1) get the car with list of its rides
             List<TravelPlan> travelPlansWithSelectedCar = new List<TravelPlan>();
 
             foreach (var travelPlan in TravelPlans)
@@ -40,10 +39,8 @@ namespace Carpool.Repositories
                 }
             }
 
-            // 2) foreach element in list check if dates match
             foreach (var travelPlan in travelPlansWithSelectedCar)
             {
-                // this works if it is between dates
                 if (startDate < travelPlan.EndDate && travelPlan.StartDate < endDate)
                 {
                     return true;

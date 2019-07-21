@@ -110,9 +110,14 @@ namespace Carpool.Controllers
 
             else
             {
-                travelPlan.ListOfCars = carRepository.Cars.ToList();
+                TravelPlan plan = travelPlanRepository.TravelPlans.Where(p => p.Id == travelPlan.Id).FirstOrDefault();
 
-                return View(travelPlan);
+                //travelPlan.ListOfCars = carRepository.Cars.ToList();
+                //travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
+                //travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
+                plan.SelectedCarPlates = plan.SelectedCar.Plates;
+
+                return View(plan);
             }
         }
 
