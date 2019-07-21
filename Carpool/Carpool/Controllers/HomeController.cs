@@ -53,7 +53,6 @@ namespace Carpool.Controllers
         {
             TravelPlan travelPlan = new TravelPlan();
 
-            travelPlan.ListOfCars = new List<Car>();
             travelPlan.ListOfCars = carRepository.Cars.ToList();
 
             return View(travelPlan);
@@ -97,7 +96,6 @@ namespace Carpool.Controllers
             {
                 travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
                 travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
-                //travelPlanRepository.EditTravelPlan(travelPlan);
                 travelPlanRepository.SaveTravelPlan(travelPlan);
 
                 return RedirectToAction("Carpools");
@@ -121,12 +119,6 @@ namespace Carpool.Controllers
                 travel.ListOfEmployees = employeeRepository.Employees.ToList();
                 travel.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travel.Id);
                 travel.SelectedCarPlates = travel.SelectedCar.Plates;
-            }
-            else
-            {
-                travel.ListOfEmployees = employeeRepository.Employees.ToList();
-
-                // todo : this else may be obsolete... check it...
             }
 
             return View(travel);
