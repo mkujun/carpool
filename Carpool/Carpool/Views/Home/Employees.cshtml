@@ -1,23 +1,28 @@
 ﻿@model IEnumerable<Employee>
 @{
-    ViewData["Title"] = "List of employees";
+    ViewData["Title"] = "Employees";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>This is list of employees which are available for car pooling</p>
+<p>These are employees which are available for car pooling</p>
 
-<div class="container">
-    <div class="row">
-        <div class="col-4"><h3>Employee Id</h3></div>
-        <div class="col-4"><h3>Name</h3></div>
-    </div>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Has drivers license</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.Name</td>
+                <td>@employee.IsDriver</td>
+            </tr>
+        }
+    </tbody>
 
-    @foreach (var employee in Model)
-    {
-        <div class="row">
-            <div class="col-sm-4">@employee.Id</div>
-            <div class="col-sm-4">@employee.Name</div>
-        </div>
-    }
-</div>
-
+</table>

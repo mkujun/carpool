@@ -5,25 +5,29 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>This is list of cars</p>
+<p>This is a list of company cars</p>
 
-<div class="container">
-    <div class="row">
-        <div class="col-2"><h3>Car type</h3></div>
-        <div class="col-2"><h3>Color</h3></div>
-        <div class="col-2"><h3>Name</h3></div>
-        <div class="col-2"><h3>Number of seats</h3></div>
-        <div class="col-2"><h3>Registration plates</h3></div>
-    </div>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Car type</th>
+            <th scope="col">Color</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number of seats</th>
+            <th scope="col">Registration plates</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.CarType</td>
+                <td>@car.Color</td>
+                <td>@car.Name</td>
+                <td>@car.NumberOfSeats</td>
+                <td>@car.Plates</td>
+            </tr>
+        }
+    </tbody>
 
-    @foreach (var car in Model)
-    {
-        <div class="row">
-            <div class="col-sm-2">@car.CarType</div>
-            <div class="col-sm-2">@car.Color</div>
-            <div class="col-sm-2">@car.Name</div>
-            <div class="col-sm-2">@car.NumberOfSeats</div>
-            <div class="col-sm-2">@car.Plates</div>
-        </div>
-    }
-</div>
+</table>
