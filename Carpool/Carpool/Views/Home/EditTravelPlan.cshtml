@@ -49,6 +49,10 @@
                     <select class = "form-control" asp-for="@Model.SelectedCarPlates" asp-items="@(new SelectList(Model.ListOfCars, "Plates", "CarType"))">
                         <option disabled selected>@Model.SelectedCar.Name</option>
                     </select>
+                    @if (ViewData.ModelState.ContainsKey("CarIsFull"))
+                    {
+                        <span class="text-danger">Car is to small for the selected passengers.</span>
+                    }
                 </div>
             </div>
         </div>

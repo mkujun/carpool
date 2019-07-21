@@ -102,5 +102,19 @@ namespace Carpool.Repositories
             }
 
         }
+
+        public List<TravelPlan> GetTravelPlansForMonth(int month)
+        {
+            List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).ToList();
+
+            if(travelPlans != null)
+            {
+                return travelPlans;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

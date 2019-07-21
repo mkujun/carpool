@@ -10,6 +10,7 @@ namespace Carpool.Interfaces
     {
         IEnumerable<Car> Cars { get; }
         Car GetCar(string licensePlates);
+        bool CanFitIntoACar(string licensePlates, List<Employee> selectedEmployees);
         bool CanFitIntoACar(string licensePlates, int[] employeesIds);
     }
 }

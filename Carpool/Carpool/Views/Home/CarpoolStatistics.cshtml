@@ -16,7 +16,25 @@
     </div>
 </div>
 
-<div class="row"></div>
+<div class="row" id="travelPlans" style="display:none">
+    @if(Model.TravelPlans != null)
+    {
+        @foreach (var travelPlan in Model.TravelPlans)
+        {
+            <div class="card mx-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Travel plan: @travelPlan.Id</h5>
+                    <h5 class="card-subtitle">@travelPlan.StartLocation - @travelPlan.EndLocation</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate.ToShortDateString() - @travelPlan.EndDate.ToShortDateString()</h6>
+                </div>
+                <p class="card-text">
+
+                </p>
+            </div>
+
+        }
+    }
+</div>
 
 @section scripts {
     <script type="text/javascript">
@@ -36,11 +54,15 @@
                 error: function (response) {
                 },
                 success: function (response) {
-                    if (response.error != null) {
-                        alert(response.error);
+                    if (response.travelPlans.length < 0) {
+                        //alert(response.error);
+                        //$("#travelPlans").hide();
+                        //console.log(response);
                     }
                     else {
-                        window.location.assign("/Home/CarpoolStatistics");
+                        // todo : show hidden card layout
+                        $("#travelPlans").show();
+                        console.log(response);
                     }
                 }
             });

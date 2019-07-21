@@ -99,6 +99,15 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult EditTravelPlan(TravelPlan travelPlan)
         {
+            TravelPlan travelPlanForEdit = travelPlanRepository.TravelPlans.Where(p => p.Id == travelPlan.Id).FirstOrDefault();
+
+            bool canFitIntoACar = carRepository.CanFitIntoACar(travelPlan.SelectedCarPlates, travelPlanForEdit.SelectedEmployees);
+
+            if(!canFitIntoACar)
+            {
+                ModelState.AddModelError("CarIsFull", "");
+            }
+
             if (ModelState.IsValid)
             {
                 travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
@@ -198,7 +207,6 @@ namespace Carpool.Controllers
         public IActionResult CarpoolStatistics()
         {
             TravelPlanStatisticsViewModel travelPlanStatisticsViewModel = new TravelPlanStatisticsViewModel();
-            travelPlanStatisticsViewModel.TravelPlans = travelPlanRepository.TravelPlans;
 
             return View(travelPlanStatisticsViewModel);
         }
@@ -206,7 +214,10 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CarpoolStatistics([FromBody] TravelPlanStatisticsViewModel data)
         {
-            return View();
+            //travelPlanStatisticsViewModel.TravelPlans = travelPlanRepository.TravelPlans;
+            data.TravelPlans = travelPlanRepository.GetTravelPlansForMonth(data.MonthId);
+
+            return Json(data);
         }
 
     }

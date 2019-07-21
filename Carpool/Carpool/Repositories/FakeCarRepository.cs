@@ -40,6 +40,23 @@ namespace Carpool.Repositories
             return false;
         }
 
+        public bool CanFitIntoACar(string licensePlates, List<Employee> selectedEmployees)
+        {
+            Car car = GetCar(licensePlates);
+
+            if(car != null)
+            {
+                if(car.NumberOfSeats < selectedEmployees.Count)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         public Car GetCar(string licensePlates)
         {
             Car car = Cars.Where(c => c.Plates == licensePlates).FirstOrDefault();
