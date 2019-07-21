@@ -70,7 +70,15 @@ namespace Carpool.Controllers
 
             if (ModelState.IsValid)
             {
-                travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
+                if (travelPlanRepository.TravelPlans.Count == 0)
+                {
+                    travelPlan.Id = 1;
+                }
+                else
+                {
+                    travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
+                }
+
                 travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
 
                 travelPlanRepository.TravelPlans.Add(travelPlan);
@@ -121,9 +129,6 @@ namespace Carpool.Controllers
             {
                 TravelPlan plan = travelPlanRepository.TravelPlans.Where(p => p.Id == travelPlan.Id).FirstOrDefault();
 
-                //travelPlan.ListOfCars = carRepository.Cars.ToList();
-                //travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
-                //travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
                 plan.SelectedCarPlates = plan.SelectedCar.Plates;
 
                 return View(plan);
@@ -171,37 +176,18 @@ namespace Carpool.Controllers
                 return Json(data);
             }
 
-            // if travel plans are empty(null) 
-            if (travelPlanRepository.TravelPlans == null)
-            {
-                travelPlanRepository.TravelPlans = new List<TravelPlan>();
-
-                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
-
-                travelPlanRepository.SaveTravelPlan(data);
-            }
-
+            // if travel plan already exists
             if (travelPlanRepository.TravelPlans.Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
             {
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
                 data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
 
-                // travelPlanRepository.EditTravelPlan(data);
                 travelPlanRepository.SaveTravelPlan(data);
 
                 return Json(data);
             }
 
-            else
-            {
-                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
-                data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
-
-                travelPlanRepository.SaveTravelPlan(data);
-
-                return Json(data);
-            }
-
+            return Json(data);
         }
 
         public IActionResult CarpoolStatistics()
