@@ -14,6 +14,8 @@ namespace Carpool.Repositories
         public FakeTravelPlanRepository()
         {
             TravelPlans = new List<TravelPlan>();
+            
+
             List<Employee> selectedEmployees = new List<Employee>();
             selectedEmployees.Add(new Employee(3, "Johnny Cash", true));
             selectedEmployees.Add(new Employee(4, "David Bowie", false));
@@ -105,7 +107,7 @@ namespace Carpool.Repositories
 
         public List<TravelPlan> GetTravelPlansForMonth(int month)
         {
-            List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).ToList();
+            List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).OrderBy(tp => tp.SelectedCar.Name).ToList();
 
             if(travelPlans != null)
             {

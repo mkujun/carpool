@@ -198,12 +198,12 @@ namespace Carpool.Controllers
         }
 
         [HttpPost]
-        public IActionResult CarpoolStatistics([FromBody] TravelPlanStatisticsViewModel data)
+        public IActionResult CarpoolStatistics(TravelPlanStatisticsViewModel data)
         {
             //travelPlanStatisticsViewModel.TravelPlans = travelPlanRepository.TravelPlans;
             data.TravelPlans = travelPlanRepository.GetTravelPlansForMonth(data.MonthId);
 
-            return Json(data);
+            return View(data);
         }
 
     }
