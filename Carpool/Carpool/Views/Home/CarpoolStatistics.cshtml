@@ -1,0 +1,58 @@
+﻿@model TravelPlanStatisticsViewModel
+@{
+    ViewData["Title"] = "CarpoolStatistics";
+}
+
+<h1>Carpool Statistics</h1>
+
+@using (Html.BeginForm("CarpoolStatistics", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-inline">
+                    <select class="form-control mb-2 col-md-4" asp-for="@Model.MonthId" id="selectedMonth" asp-items="@Model.Months"></select>
+                    <label class="mb-2 mx-2">Select month for statistics</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-inline">
+                    <select class="form-control mb-2 col-md-4" asp-for="@Model.SelectedCarPlates" id="selectedCarPlates" asp-items="@(new SelectList(Model.Cars, "Plates", "Name"))"><option></option></select>
+                    <label class="mb-2 mx-2">Pick a car (optional)</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" id="selectMonth" class="btn btn-secondary mb-2">Submit</button>
+    </div>
+}
+
+<div class="row" id="travelPlans">
+    @if(Model.TravelPlans != null)
+    {
+        @foreach (var travelPlan in Model.TravelPlans)
+        {
+            <div class="card mx-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-subtitle mb-2 text-muted alert alert-primary">@travelPlan.StartLocation - @travelPlan.EndLocation</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate.ToShortDateString() - @travelPlan.EndDate.ToShortDateString()</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">@travelPlan.SelectedCar.Name - @travelPlan.SelectedCar.Plates</h6>
+                </div>
+                <p class="card-text">
+                    <ul class="list-group">
+                        <li class="list-group-item"><b class="alert-info">Selected passengers</b></li>
+                        @if (travelPlan.SelectedEmployees != null)
+                        {
+                            @foreach (var employee in travelPlan.SelectedEmployees)
+                            {
+                                <li class="list-group-item">@employee.Name</li>
+                            }
+                        }
+                    </ul>
+                </p>
+            </div>
+        }
+    }
+</div>

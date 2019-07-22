@@ -1,0 +1,45 @@
+﻿@model List<TravelPlan>
+@{
+    ViewData["Title"] = "List of current carpools";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p></p>
+
+<div class="row">
+    @foreach (var travelPlan in Model)
+    {
+        <div class="card mx-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@travelPlan.StartLocation - @travelPlan.EndLocation</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.StartDate.ToShortDateString() - @travelPlan.EndDate.ToShortDateString()</h6>
+                <h6 class="card-subtitle mb-2 text-muted">@travelPlan.SelectedCar.Name - @travelPlan.SelectedCar.Plates</h6>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @if (travelPlan.SelectedEmployees != null)
+                        {
+                            @foreach (var employee in travelPlan.SelectedEmployees)
+                            {
+                                <li class="list-group-item">@employee.Name</li>
+                            }
+                        }
+                    </ul>
+                </p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a asp-controller="Home", asp-action="PickPassengers" asp-route-id="@travelPlan.Id">Edit passengers</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a asp-controller="Home", asp-action="EditTravelPlan" asp-route-id="@travelPlan.Id">Edit route</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a asp-controller="Home", asp-action="DeleteTravelPlan" asp-route-id="@travelPlan.Id"><b class="alert-danger">Delete travel plan</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+
+
+

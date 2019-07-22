@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Car>
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>This is a list of company cars</p>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Car type</th>
+            <th scope="col">Color</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number of seats</th>
+            <th scope="col">Registration plates</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.CarType</td>
+                <td>@car.Color</td>
+                <td>@car.Name</td>
+                <td>@car.NumberOfSeats</td>
+                <td>@car.Plates</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

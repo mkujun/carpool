@@ -7,6 +7,20 @@ namespace Carpool.Models
 {
     public class Car
     {
+        public Car()
+        {
+
+        }
+
+        public Car(string name, string carType, string color, string plates, int numberOfSeats) 
+        {
+            Name = name;
+            CarType = carType;
+            Color = color;
+            Plates = plates;
+            NumberOfSeats = numberOfSeats;
+        }
+
         public string Name { get; set; }
         public string CarType { get; set; }
         public string Color { get; set; }
