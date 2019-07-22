@@ -14,19 +14,6 @@ namespace Carpool.Repositories
         public FakeTravelPlanRepository()
         {
             TravelPlans = new List<TravelPlan>();
-            
-
-            List<Employee> selectedEmployees = new List<Employee>();
-            selectedEmployees.Add(new Employee(3, "Johnny Cash", true));
-            selectedEmployees.Add(new Employee(4, "David Bowie", false));
-            selectedEmployees.Add(new Employee(1, "John Lennon", true));
-
-            Car clio = new Car("Clio", "Renault Clio", "Yellow", "ZG 456-PD", 4);
-            Car skoda = new Car( "Green Skoda", "Skoda Octavia", "Green", "RI 312-AC" , 4);
-
-            TravelPlans.Add(new TravelPlan(1,"Rijeka", "Zagreb", new DateTime(2019, 7, 1), new DateTime(2019, 7, 10), clio, selectedEmployees));
-            TravelPlans.Add(new TravelPlan(2,"Crikvenica", "Zagreb", DateTime.Now, DateTime.Today, skoda, selectedEmployees));
-            TravelPlans.Add(new TravelPlan(3,"Liverpool", "Rijeka", DateTime.Now, DateTime.Today, clio, selectedEmployees));
         }
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
@@ -105,17 +92,35 @@ namespace Carpool.Repositories
 
         }
 
-        public List<TravelPlan> GetTravelPlansForMonth(int month)
+        public List<TravelPlan> GetTravelPlansForMonth(int month, string selectedCarPlates)
         {
-            List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).OrderBy(tp => tp.SelectedCar.Name).ToList();
-
-            if(travelPlans != null)
+            if (selectedCarPlates != null)
             {
-                return travelPlans;
+                List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month && tp.SelectedCar.Plates == selectedCarPlates).OrderBy(tp => tp.StartDate).ToList();
+
+                if(travelPlans != null)
+                {
+                    return travelPlans;
+                }
+                else
+                {
+                    return null;
+                }
+
             }
+
             else
             {
-                return null;
+                List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).OrderBy(tp => tp.SelectedCar.Name).ToList();
+
+                if(travelPlans != null)
+                {
+                    return travelPlans;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

@@ -14,6 +14,6 @@ namespace Carpool.Interfaces
         TravelPlan GetTravelPlan(int travelPlanId);
         List<Employee> GetSelectedEmployees(int travelPlanId);
         bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate);
-        List<TravelPlan> GetTravelPlansForMonth(int month);
+        List<TravelPlan> GetTravelPlansForMonth(int month, string licensePlates);
     }
 }

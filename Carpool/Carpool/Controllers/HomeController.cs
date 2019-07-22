@@ -176,7 +176,6 @@ namespace Carpool.Controllers
                 return Json(data);
             }
 
-            // if travel plan already exists
             if (travelPlanRepository.TravelPlans.Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
             {
                 data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
@@ -193,6 +192,7 @@ namespace Carpool.Controllers
         public IActionResult CarpoolStatistics()
         {
             TravelPlanStatisticsViewModel travelPlanStatisticsViewModel = new TravelPlanStatisticsViewModel();
+            travelPlanStatisticsViewModel.Cars = carRepository.Cars.ToList();
 
             return View(travelPlanStatisticsViewModel);
         }
@@ -200,8 +200,8 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CarpoolStatistics(TravelPlanStatisticsViewModel data)
         {
-            //travelPlanStatisticsViewModel.TravelPlans = travelPlanRepository.TravelPlans;
-            data.TravelPlans = travelPlanRepository.GetTravelPlansForMonth(data.MonthId);
+            data.Cars = carRepository.Cars.ToList();
+            data.TravelPlans = travelPlanRepository.GetTravelPlansForMonth(data.MonthId, data.SelectedCarPlates);
 
             return View(data);
         }

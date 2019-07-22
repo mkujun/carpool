@@ -25,6 +25,8 @@ namespace Carpool.Models
         }
 
         public List<TravelPlan> TravelPlans { get; set; }
+        public List<Car> Cars { get; set; }
+        public string SelectedCarPlates { get; set; }
 
         public List<SelectListItem> Months = new List<SelectListItem>();
 
