@@ -51,16 +51,9 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult CreateTravelPlan()
         {
-            /*
-            TravelPlan travelPlan = new TravelPlan();
-
-            travelPlan.ListOfCars = carRepository.Cars.ToList();
-
-            return View(travelPlan);
-            */
-
             TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
             travelPlanDTO.ListOfCars = carRepository.Cars.ToList();
+            
             return View(travelPlanDTO);
         }
 
@@ -115,16 +108,7 @@ namespace Carpool.Controllers
         {
             TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(id);
 
-            TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
-
-            travelPlanDTO.ListOfCars = carRepository.Cars.ToList();
-            travelPlanDTO.Id = travelPlan.Id;
-            travelPlanDTO.StartDate = travelPlan.StartDate;
-            travelPlanDTO.EndDate = travelPlan.EndDate;
-            travelPlanDTO.StartLocation = travelPlan.StartLocation;
-            travelPlanDTO.EndLocation = travelPlan.EndLocation;
-            travelPlanDTO.SelectedCarPlates = travelPlan.SelectedCar.Plates;
-            travelPlanDTO.SelectedCar = travelPlan.SelectedCar;
+            TravelPlanDTO travelPlanDTO = travelPlanRepository.MapTravelPlanToDTO(travelPlan, carRepository);
 
             return View(travelPlanDTO);
         }
@@ -165,13 +149,7 @@ namespace Carpool.Controllers
         {
             TravelPlan travel = travelPlanRepository.GetTravelPlan(id);
 
-            TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
-            travelPlanDTO.Id = travel.Id;
-            travelPlanDTO.StartLocation = travel.StartLocation;
-            travelPlanDTO.EndLocation = travel.EndLocation;
-            travelPlanDTO.StartDate = travel.StartDate;
-            travelPlanDTO.EndDate = travel.EndDate;
-            travelPlanDTO.SelectedCar = travel.SelectedCar;
+            TravelPlanDTO travelPlanDTO = travelPlanRepository.MapTravelPlanToDTO(travel, carRepository);
 
             if (travelPlanDTO != null)
             {

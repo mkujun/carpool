@@ -123,5 +123,21 @@ namespace Carpool.Repositories
                 }
             }
         }
+
+        public TravelPlanDTO MapTravelPlanToDTO(TravelPlan travelPlan, ICarRepository carRepository)
+        {
+            TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
+
+            travelPlanDTO.ListOfCars = carRepository.Cars.ToList();
+            travelPlanDTO.Id = travelPlan.Id;
+            travelPlanDTO.StartDate = travelPlan.StartDate;
+            travelPlanDTO.EndDate = travelPlan.EndDate;
+            travelPlanDTO.StartLocation = travelPlan.StartLocation;
+            travelPlanDTO.EndLocation = travelPlan.EndLocation;
+            travelPlanDTO.SelectedCarPlates = travelPlan.SelectedCar.Plates;
+            travelPlanDTO.SelectedCar = travelPlan.SelectedCar;
+
+            return travelPlanDTO;
+        }
     }
 }
