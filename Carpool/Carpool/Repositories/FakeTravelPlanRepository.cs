@@ -39,16 +39,16 @@ namespace Carpool.Repositories
             return false;
         }
 
-        public void SaveTravelPlan(TravelPlan travelPlan)
+        public void SaveTravelPlan(TravelPlanDTO travelPlanDTO)
         {
-            TravelPlan updatedTravelPlan = TravelPlans.Where(tp => tp.Id == travelPlan.Id).FirstOrDefault();
+            TravelPlan updatedTravelPlan = TravelPlans.Where(tp => tp.Id == travelPlanDTO.Id).FirstOrDefault();
 
-            updatedTravelPlan.StartDate = travelPlan.StartDate;
-            updatedTravelPlan.EndDate = travelPlan.EndDate;
-            updatedTravelPlan.StartLocation = travelPlan.StartLocation;
-            updatedTravelPlan.EndLocation = travelPlan.EndLocation;
-            updatedTravelPlan.SelectedCar = travelPlan.SelectedCar;
-            updatedTravelPlan.SelectedEmployees = travelPlan.SelectedEmployees;
+            updatedTravelPlan.StartDate = travelPlanDTO.StartDate;
+            updatedTravelPlan.EndDate = travelPlanDTO.EndDate;
+            updatedTravelPlan.StartLocation = travelPlanDTO.StartLocation;
+            updatedTravelPlan.EndLocation = travelPlanDTO.EndLocation;
+            updatedTravelPlan.SelectedCar = travelPlanDTO.SelectedCar;
+            updatedTravelPlan.SelectedEmployees = travelPlanDTO.SelectedEmployees;
         }
 
         public void DeleteTravelPlan(int travelPlanId)

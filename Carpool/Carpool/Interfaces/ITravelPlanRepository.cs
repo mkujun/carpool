@@ -9,7 +9,7 @@ namespace Carpool.Interfaces
     public interface ITravelPlanRepository
     {
         List<TravelPlan> TravelPlans { get; set; }
-        void SaveTravelPlan(TravelPlan travelPlan);
+        void SaveTravelPlan(TravelPlanDTO travelPlanDTO);
         void DeleteTravelPlan(int travelPlanId);
         TravelPlan GetTravelPlan(int travelPlanId);
         List<Employee> GetSelectedEmployees(int travelPlanId);
