@@ -69,28 +69,10 @@ namespace Carpool.Controllers
 
             if (ModelState.IsValid)
             {
-                TravelPlan travelPlan = new TravelPlan();
-
-                travelPlan.StartDate = travelPlanDTO.StartDate;
-                travelPlan.EndDate = travelPlanDTO.EndDate;
-                travelPlan.StartLocation = travelPlanDTO.StartLocation;
-                travelPlan.EndLocation = travelPlanDTO.EndLocation;
-
-                if (travelPlanRepository.TravelPlans.Count == 0)
-                {
-                    travelPlan.Id = 1;
-                    travelPlanDTO.Id = travelPlan.Id;
-                }
-
-                else
-                {
-                    travelPlan.Id = travelPlanRepository.TravelPlans.Last().Id + 1;
-                    travelPlanDTO.Id = travelPlan.Id;
-                }
-
-                travelPlan.SelectedCar = carRepository.GetCar(travelPlanDTO.SelectedCarPlates);
-
+                TravelPlan travelPlan = travelPlanRepository.MapDTOToTravelPlan(travelPlanDTO, carRepository); 
                 travelPlanRepository.TravelPlans.Add(travelPlan);
+
+                travelPlanDTO.Id = travelPlan.Id;
 
                 return RedirectToAction("PickPassengers", travelPlanDTO);
             }

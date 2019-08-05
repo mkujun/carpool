@@ -16,5 +16,6 @@ namespace Carpool.Interfaces
         bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate);
         List<TravelPlan> GetTravelPlansForMonth(int month, string licensePlates);
         TravelPlanDTO MapTravelPlanToDTO(TravelPlan travelPlan, ICarRepository carRepository);
+        TravelPlan MapDTOToTravelPlan(TravelPlanDTO travelPlanDTO, ICarRepository carRepository);
     }
 }

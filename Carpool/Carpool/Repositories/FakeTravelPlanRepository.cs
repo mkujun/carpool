@@ -139,5 +139,29 @@ namespace Carpool.Repositories
 
             return travelPlanDTO;
         }
+
+        public TravelPlan MapDTOToTravelPlan(TravelPlanDTO travelPlanDTO, ICarRepository carRepository)
+        {
+            TravelPlan travelPlan = new TravelPlan();
+
+            travelPlan.StartDate = travelPlanDTO.StartDate;
+            travelPlan.EndDate = travelPlanDTO.EndDate;
+            travelPlan.StartLocation = travelPlanDTO.StartLocation;
+            travelPlan.EndLocation = travelPlanDTO.EndLocation;
+
+            if (TravelPlans.Count == 0)
+            {
+                travelPlan.Id = 1;
+            }
+
+            else
+            {
+                travelPlan.Id = TravelPlans.Last().Id + 1;
+            }
+
+            travelPlan.SelectedCar = carRepository.GetCar(travelPlanDTO.SelectedCarPlates);
+
+            return travelPlan;
+        }
     }
 }
