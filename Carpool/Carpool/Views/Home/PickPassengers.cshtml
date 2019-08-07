@@ -24,16 +24,21 @@
         </div>
     </div>
     <div class="form-group">
-        <table class="table col-md-8" id="employeeOnRideTable">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Employee Id</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <table class="table" id="employeeOnRideTable">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="width: 25%">Id</th>
+                            <th scope="col" style="width: 50%">Name</th>
+                            <th scope="col" style="width: 15%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
         <button type="button" id ="createRide" class="btn btn-primary">Create ride</button>
@@ -70,7 +75,7 @@
                 var employeeName = selectedEmployees[i].name;
                 var employeeId = selectedEmployees[i].id;
 
-                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btn btn-warning">Delete</td></tr>');
 
                 employeeList.push(employeeId);
             }
@@ -109,14 +114,14 @@
                     $('#warningModal').modal('toggle');
                 }
                 else {
-                    $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+                    $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btn btn-warning">Delete</td></tr>');
 
                     employeeList.push(employeeId);
                 }
 
             });
 
-            $("#employeeOnRideTable").on("click", ".btnDelete", function () {
+            $("#employeeOnRideTable").on("click", ".btn", function () {
 
                 var employeeId = $(this).closest("tr").children()[0].innerText;
 
