@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Carpool.Domain;
+using Carpool.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Carpool.Models
+namespace Carpool.Application
 {
     public class TravelPlanDTO : IValidatableObject
     {

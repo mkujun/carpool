@@ -1,5 +1,5 @@
-﻿using Carpool.Interfaces;
-using Carpool.Models;
+﻿using Carpool.Domain.Interfaces;
+using Carpool.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,50 +38,9 @@ namespace Carpool.Repositories
             new Employee { Id = 25, Name = "Boris Stok", IsDriver = true } // easter egg for Milivoj M.
         };
 
-        public int[] GetEmployeeIds(List<Employee> employees)
+        public IEnumerable<Employee> GetEmployees()
         {
-            Employee[] employeeArray = employees.ToArray();
-
-            int[] employeeIds = new int[employeeArray.Length];
-
-            for (int i = 0; i < employeeArray.Length; i++)
-            {
-                employeeIds[i] = employeeArray[i].Id; 
-            }
-
-            return employeeIds;
-        }
-
-        public List<Employee> GetEmployeesByIds(int[] employeeIds)
-        {
-            List<Employee> employees = new List<Employee>();
-
-            foreach (var employeeId in employeeIds)
-            {
-                Employee employee = Employees.Where(e => e.Id == employeeId).FirstOrDefault();
-
-                if (employee != null)
-                {
-                    employees.Add(employee);
-                }
-            }
-
-            return employees;
-        }
-
-        public bool HasDriverLicense(int[] employeeIds)
-        {
-            foreach (int employeeId in employeeIds)
-            {
-                Employee employee = Employees.Where(e => e.Id == employeeId).FirstOrDefault();
-
-                if(employee.IsDriver)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return Employees;
         }
     }
 }

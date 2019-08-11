@@ -1,12 +1,13 @@
-﻿using Carpool.Models;
+﻿using Carpool.Domain;
+using Carpool.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Carpool.Interfaces
+namespace Carpool.Application
 {
-    public interface ICarRepository
+    public interface ICarService
     {
         IEnumerable<Car> Cars { get; }
         Car GetCar(string licensePlates);

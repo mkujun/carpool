@@ -5,21 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Carpool.Models;
-using Carpool.Interfaces;
+using Carpool.Application;
+using Carpool.Domain;
+using Carpool.Domain.Interfaces;
+using Carpool.Domain.Models;
 
 namespace Carpool.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository employeeRepository;
-        private ICarRepository carRepository;
-        private ITravelPlanRepository travelPlanRepository;
+        private IEmployeeService _employeeService;
+        private ICarService _carService;
+        private ITravelPlanService _travelPlanService;
 
-        public HomeController(IEmployeeRepository employeeRepo, ICarRepository carRepo, ITravelPlanRepository travelPlanRepo)
+        public HomeController(IEmployeeService employeeService, ICarService carService, ITravelPlanService travelPlanService)
         {
-            employeeRepository = employeeRepo;
-            carRepository = carRepo;
-            travelPlanRepository = travelPlanRepo;
+            _employeeService = employeeService;
+            _carService = carService;
+            _travelPlanService = travelPlanService;
         }
 
         public IActionResult Index()
@@ -29,21 +32,21 @@ namespace Carpool.Controllers
 
         public IActionResult Employees()
         {
-            IEnumerable<Employee> employees = employeeRepository.Employees;
+            IEnumerable<Employee> employees = _employeeService.Employees;
 
             return View(employees);
         }
 
         public IActionResult Cars()
         {
-            IEnumerable<Car> cars = carRepository.Cars;
+            IEnumerable<Car> cars = _carService.Cars;
 
             return View(cars);
         }
 
         public IActionResult Carpools()
         {
-            List<TravelPlan> travelPlans = travelPlanRepository.TravelPlans;
+            List<TravelPlan> travelPlans = _travelPlanService.GetTravelPlans();
 
             return View(travelPlans);
         }
@@ -52,7 +55,7 @@ namespace Carpool.Controllers
         public IActionResult CreateTravelPlan()
         {
             TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
-            travelPlanDTO.ListOfCars = carRepository.Cars.ToList();
+            travelPlanDTO.ListOfCars = _carService.Cars.ToList();
             
             return View(travelPlanDTO);
         }
@@ -60,7 +63,7 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CreateTravelPlan(TravelPlanDTO travelPlanDTO)
         {
-            bool isCarOnRide = travelPlanRepository.IsCarAlreadyOnTheRide(travelPlanDTO.SelectedCarPlates, travelPlanDTO.StartDate, travelPlanDTO.EndDate);
+            bool isCarOnRide = _travelPlanService.IsCarAlreadyOnTheRide(travelPlanDTO.SelectedCarPlates, travelPlanDTO.StartDate, travelPlanDTO.EndDate);
 
             if(isCarOnRide)
             {
@@ -69,8 +72,8 @@ namespace Carpool.Controllers
 
             if (ModelState.IsValid)
             {
-                TravelPlan travelPlan = travelPlanRepository.MapDTOToTravelPlan(travelPlanDTO, carRepository); 
-                travelPlanRepository.TravelPlans.Add(travelPlan);
+                TravelPlan travelPlan = _travelPlanService.MapDTOToTravelPlan(travelPlanDTO, _carService); 
+                _travelPlanService.GetTravelPlans().Add(travelPlan);
 
                 travelPlanDTO.Id = travelPlan.Id;
 
@@ -79,7 +82,7 @@ namespace Carpool.Controllers
 
             else
             {
-                travelPlanDTO.ListOfCars = carRepository.Cars.ToList();
+                travelPlanDTO.ListOfCars = _carService.Cars.ToList();
 
                 return View(travelPlanDTO);
             }
@@ -88,9 +91,9 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult EditTravelPlan(int id)
         {
-            TravelPlan travelPlan = travelPlanRepository.GetTravelPlan(id);
+            TravelPlan travelPlan = _travelPlanService.GetTravelPlan(id);
 
-            TravelPlanDTO travelPlanDTO = travelPlanRepository.MapTravelPlanToDTO(travelPlan, carRepository);
+            TravelPlanDTO travelPlanDTO = _travelPlanService.MapTravelPlanToDTO(travelPlan, _carService);
 
             return View(travelPlanDTO);
         }
@@ -98,9 +101,9 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult EditTravelPlan(TravelPlanDTO travelPlan)
         {
-            TravelPlan travelPlanForEdit = travelPlanRepository.TravelPlans.Where(p => p.Id == travelPlan.Id).FirstOrDefault();
+            TravelPlan travelPlanForEdit = _travelPlanService.GetTravelPlans().Where(p => p.Id == travelPlan.Id).FirstOrDefault();
 
-            bool canFitIntoACar = carRepository.CanFitIntoACar(travelPlan.SelectedCarPlates, travelPlanForEdit.SelectedEmployees);
+            bool canFitIntoACar = _carService.CanFitIntoACar(travelPlan.SelectedCarPlates, travelPlanForEdit.SelectedEmployees);
 
             if(!canFitIntoACar)
             {
@@ -109,18 +112,18 @@ namespace Carpool.Controllers
 
             if (ModelState.IsValid)
             {
-                travelPlan.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travelPlan.Id);
-                travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
+                travelPlan.SelectedEmployees = _travelPlanService.GetSelectedEmployees(travelPlan.Id);
+                travelPlan.SelectedCar = _carService.GetCar(travelPlan.SelectedCarPlates);
                 
-                travelPlanRepository.SaveTravelPlan(travelPlan);
+                _travelPlanService.SaveTravelPlan(travelPlan);
 
                 return RedirectToAction("Carpools");
             }
 
             else
             {
-                travelPlan.ListOfCars = carRepository.Cars.ToList();
-                travelPlan.SelectedCar = carRepository.GetCar(travelPlan.SelectedCarPlates);
+                travelPlan.ListOfCars = _carService.Cars.ToList();
+                travelPlan.SelectedCar = _carService.GetCar(travelPlan.SelectedCarPlates);
 
                 return View(travelPlan);
             }
@@ -129,14 +132,14 @@ namespace Carpool.Controllers
         [HttpGet]
         public IActionResult PickPassengers(int id)
         {
-            TravelPlan travel = travelPlanRepository.GetTravelPlan(id);
+            TravelPlan travel = _travelPlanService.GetTravelPlan(id);
 
-            TravelPlanDTO travelPlanDTO = travelPlanRepository.MapTravelPlanToDTO(travel, carRepository);
+            TravelPlanDTO travelPlanDTO = _travelPlanService.MapTravelPlanToDTO(travel, _carService);
 
             if (travelPlanDTO != null)
             {
-                travelPlanDTO.ListOfEmployees = employeeRepository.Employees.ToList();
-                travelPlanDTO.SelectedEmployees = travelPlanRepository.GetSelectedEmployees(travel.Id);
+                travelPlanDTO.ListOfEmployees = _employeeService.Employees.ToList();
+                travelPlanDTO.SelectedEmployees = _travelPlanService.GetSelectedEmployees(travel.Id);
                 travelPlanDTO.SelectedCarPlates = travel.SelectedCar.Plates;
             }
 
@@ -145,7 +148,7 @@ namespace Carpool.Controllers
 
         public RedirectToActionResult DeleteTravelPlan(int id)
         {
-            travelPlanRepository.DeleteTravelPlan(id);
+            _travelPlanService.DeleteTravelPlan(id);
 
             return RedirectToAction("Carpools");
         }
@@ -153,7 +156,7 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlanDTO data)
         {
-            bool hasLicense = employeeRepository.HasDriverLicense(data.ListOfPassengersIds);
+            bool hasLicense = _employeeService.HasDriverLicense(data.ListOfPassengersIds);
 
             if (!hasLicense)
             {
@@ -161,7 +164,7 @@ namespace Carpool.Controllers
                 return Json(data);
             }
 
-            bool canFitIntoACar = carRepository.CanFitIntoACar(data.SelectedCarPlates, data.ListOfPassengersIds);
+            bool canFitIntoACar = _carService.CanFitIntoACar(data.SelectedCarPlates, data.ListOfPassengersIds);
 
             if (!canFitIntoACar)
             {
@@ -169,12 +172,12 @@ namespace Carpool.Controllers
                 return Json(data);
             }
 
-            if (travelPlanRepository.TravelPlans.Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
+            if (_travelPlanService.GetTravelPlans().Where(tp => tp.Id == data.Id).FirstOrDefault() != null)
             {
-                data.SelectedEmployees = employeeRepository.GetEmployeesByIds(data.ListOfPassengersIds);
-                data.SelectedCar = carRepository.GetCar(data.SelectedCarPlates);
+                data.SelectedEmployees = _employeeService.GetEmployeesByIds(data.ListOfPassengersIds);
+                data.SelectedCar = _carService.GetCar(data.SelectedCarPlates);
 
-                travelPlanRepository.SaveTravelPlan(data);
+                _travelPlanService.SaveTravelPlan(data);
 
                 return Json(data);
             }
@@ -185,7 +188,7 @@ namespace Carpool.Controllers
         public IActionResult CarpoolStatistics()
         {
             TravelPlanStatisticsViewModel travelPlanStatisticsViewModel = new TravelPlanStatisticsViewModel();
-            travelPlanStatisticsViewModel.Cars = carRepository.Cars.ToList();
+            travelPlanStatisticsViewModel.Cars = _carService.Cars.ToList();
 
             return View(travelPlanStatisticsViewModel);
         }
@@ -193,8 +196,8 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult CarpoolStatistics(TravelPlanStatisticsViewModel data)
         {
-            data.Cars = carRepository.Cars.ToList();
-            data.TravelPlans = travelPlanRepository.GetTravelPlansForMonth(data.MonthId, data.SelectedCarPlates);
+            data.Cars = _carService.Cars.ToList();
+            data.TravelPlans = _travelPlanService.GetTravelPlansForMonth(data.MonthId, data.SelectedCarPlates);
 
             return View(data);
         }

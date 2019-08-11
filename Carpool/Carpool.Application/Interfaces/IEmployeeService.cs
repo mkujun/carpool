@@ -1,12 +1,12 @@
-﻿using Carpool.Models;
+﻿using Carpool.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Carpool.Interfaces
+namespace Carpool.Application
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeService
     {
         IEnumerable<Employee> Employees { get; }
         bool HasDriverLicense(int[] employeeIds);

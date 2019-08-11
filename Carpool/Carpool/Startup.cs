@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Carpool.Interfaces;
+using Carpool.Application;
+using Carpool.Application.Services;
+using Carpool.Data;
+using Carpool.Domain;
+using Carpool.Domain.Interfaces;
 using Carpool.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,9 +37,16 @@ namespace Carpool
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<IEmployeeRepository, FakeEmployeeRepository>();
-            services.AddTransient<ICarRepository, FakeCarRepository>();
+            //services.AddTransient<IEmployeeRepository, FakeEmployeeRepository>();
+            services.AddScoped<IEmployeeRepository, FakeEmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.AddScoped<ICarRepository, FakeCarRepository>();
+            services.AddScoped<ICarService, CarService>();
+
+            //services.AddSingleton<ITravelPlanRepository, FakeTravelPlanRepository>();
             services.AddSingleton<ITravelPlanRepository, FakeTravelPlanRepository>();
+            services.AddSingleton<ITravelPlanService, TravelPlanService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -1,20 +1,22 @@
-﻿using Carpool.Interfaces;
-using Carpool.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using Carpool.Domain.Interfaces;
+using Carpool.Domain.Models;
 
-namespace Carpool.Repositories
+namespace Carpool.Application.Services
 {
-    public class FakeTravelPlanRepository : ITravelPlanRepository
+    public class TravelPlanService : ITravelPlanService
     {
-        public List<TravelPlan> TravelPlans { get; set; }
+        private ITravelPlanRepository _travelPlanRepository;
 
-        public FakeTravelPlanRepository()
+        public TravelPlanService(ITravelPlanRepository travelPlanRepository)
         {
-            TravelPlans = new List<TravelPlan>();
+            _travelPlanRepository = travelPlanRepository;
         }
+
+        public List<TravelPlan> TravelPlans => _travelPlanRepository.GetTravelPlans();
 
         public bool IsCarAlreadyOnTheRide(string licensePlates, DateTime startDate, DateTime endDate)
         {
@@ -22,7 +24,7 @@ namespace Carpool.Repositories
 
             foreach (var travelPlan in TravelPlans)
             {
-                if(travelPlan.SelectedCar.Plates == licensePlates)
+                if (travelPlan.SelectedCar.Plates == licensePlates)
                 {
                     travelPlansWithSelectedCar.Add(travelPlan);
                 }
@@ -53,7 +55,7 @@ namespace Carpool.Repositories
 
         public void DeleteTravelPlan(int travelPlanId)
         {
-            TravelPlan travelPlanForDelete = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
+            TravelPlan travelPlanForDelete = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault();
 
             if (travelPlanForDelete != null)
             {
@@ -63,7 +65,7 @@ namespace Carpool.Repositories
 
         public TravelPlan GetTravelPlan(int travelPlanId)
         {
-            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
+            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault();
 
             if (travelPlan != null)
             {
@@ -78,7 +80,7 @@ namespace Carpool.Repositories
 
         public List<Employee> GetSelectedEmployees(int travelPlanId)
         {
-            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault(); 
+            TravelPlan travelPlan = TravelPlans.Where(tp => tp.Id == travelPlanId).FirstOrDefault();
 
             if (travelPlan != null)
             {
@@ -98,7 +100,7 @@ namespace Carpool.Repositories
             {
                 List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month && tp.SelectedCar.Plates == selectedCarPlates).OrderBy(tp => tp.StartDate).ToList();
 
-                if(travelPlans != null)
+                if (travelPlans != null)
                 {
                     return travelPlans;
                 }
@@ -113,7 +115,7 @@ namespace Carpool.Repositories
             {
                 List<TravelPlan> travelPlans = TravelPlans.Where(tp => tp.StartDate.Month == month).OrderBy(tp => tp.SelectedCar.Name).ToList();
 
-                if(travelPlans != null)
+                if (travelPlans != null)
                 {
                     return travelPlans;
                 }
@@ -124,7 +126,7 @@ namespace Carpool.Repositories
             }
         }
 
-        public TravelPlanDTO MapTravelPlanToDTO(TravelPlan travelPlan, ICarRepository carRepository)
+        public TravelPlanDTO MapTravelPlanToDTO(TravelPlan travelPlan, ICarService carRepository)
         {
             TravelPlanDTO travelPlanDTO = new TravelPlanDTO();
 
@@ -140,7 +142,7 @@ namespace Carpool.Repositories
             return travelPlanDTO;
         }
 
-        public TravelPlan MapDTOToTravelPlan(TravelPlanDTO travelPlanDTO, ICarRepository carRepository)
+        public TravelPlan MapDTOToTravelPlan(TravelPlanDTO travelPlanDTO, ICarService carRepository)
         {
             TravelPlan travelPlan = new TravelPlan();
 
@@ -162,6 +164,11 @@ namespace Carpool.Repositories
             travelPlan.SelectedCar = carRepository.GetCar(travelPlanDTO.SelectedCarPlates);
 
             return travelPlan;
+        }
+
+        public List<TravelPlan> GetTravelPlans()
+        {
+            return TravelPlans;
         }
     }
 }
