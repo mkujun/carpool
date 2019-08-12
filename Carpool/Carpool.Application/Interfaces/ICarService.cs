@@ -1,9 +1,5 @@
-﻿using Carpool.Domain;
-using Carpool.Domain.Models;
-using System;
+﻿using Carpool.Domain.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Carpool.Application
 {

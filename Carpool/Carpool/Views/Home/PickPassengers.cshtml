@@ -8,7 +8,7 @@
         Create travel plan
     </div>
     <div class="card-body">
-        <h5 class="card-title">Select passangers</h5>
+        <h5 class="card-title">Select passengers</h5>
 
     <div class="form-group">
         <div class="row">
@@ -45,11 +45,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Carpool error</h5>
+                <h5 class="modal-title" id="modalLabel">Carpool error</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -118,11 +118,9 @@
 
                     employeeList.push(employeeId);
                 }
-
             });
 
             $("#employeeOnRideTable").on("click", ".btn", function () {
-
                 var employeeId = $(this).closest("tr").children()[0].innerText;
 
                 for (var i = 0; i < employeeList.length; i++) {

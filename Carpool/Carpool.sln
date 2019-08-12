@@ -7,15 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpool", "Carpool\Carpool.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{C0D7DC21-C187-4139-AA86-7512D8BDE8CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carpool.Application", "Carpool.Application\Carpool.Application.csproj", "{889CCA01-5303-42B9-911B-98FBB8369B07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpool.Application", "Carpool.Application\Carpool.Application.csproj", "{889CCA01-5303-42B9-911B-98FBB8369B07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{AFA4D1F5-2F1D-462C-8314-0EA5AC604AD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carpool.Domain", "Carpool.Domain\Carpool.Domain.csproj", "{842E36BB-1049-48D7-8935-526B7F4606C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpool.Domain", "Carpool.Domain\Carpool.Domain.csproj", "{842E36BB-1049-48D7-8935-526B7F4606C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4075003C-7834-4788-B6A8-B0C8DD8C0F62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carpool.Data", "Carpool.Data\Carpool.Data.csproj", "{58482CBC-C111-4495-8163-7F3A00949FF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Carpool.Data", "Carpool.Data\Carpool.Data.csproj", "{58482CBC-C111-4495-8163-7F3A00949FF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4277629D-184F-4AB6-97E4-04D50DC88DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D8A0CD4E-3C9A-4C1F-9D48-E1A7AC3153C1} = {4277629D-184F-4AB6-97E4-04D50DC88DCB}
 		{889CCA01-5303-42B9-911B-98FBB8369B07} = {C0D7DC21-C187-4139-AA86-7512D8BDE8CB}
 		{842E36BB-1049-48D7-8935-526B7F4606C8} = {AFA4D1F5-2F1D-462C-8314-0EA5AC604AD7}
 		{58482CBC-C111-4495-8163-7F3A00949FF9} = {4075003C-7834-4788-B6A8-B0C8DD8C0F62}

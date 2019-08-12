@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Carpool.Models;
 using Carpool.Application;
-using Carpool.Domain;
-using Carpool.Domain.Interfaces;
 using Carpool.Domain.Models;
 
 namespace Carpool.Controllers

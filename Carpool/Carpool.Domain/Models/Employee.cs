@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Carpool.Domain.Models
+﻿namespace Carpool.Domain.Models
 {
     public class Employee
     {
