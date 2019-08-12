@@ -9,7 +9,12 @@ namespace Carpool.Repositories
 {
     public class FakeTravelPlanRepository : ITravelPlanRepository
     {
-        public List<TravelPlan> TravelPlans => new List<TravelPlan>();
+        public List<TravelPlan> TravelPlans;
+
+        public FakeTravelPlanRepository()
+        {
+            TravelPlans = new List<TravelPlan>();            
+        }
 
         public List<TravelPlan> GetTravelPlans()
         {

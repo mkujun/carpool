@@ -72,8 +72,10 @@ namespace Carpool.Controllers
 
             if (ModelState.IsValid)
             {
-                TravelPlan travelPlan = _travelPlanService.MapDTOToTravelPlan(travelPlanDTO, _carService); 
-                _travelPlanService.GetTravelPlans().Add(travelPlan);
+                TravelPlan travelPlan = _travelPlanService.MapDTOToTravelPlan(travelPlanDTO, _carService);
+                
+                List<TravelPlan> travelPlans = _travelPlanService.GetTravelPlans();
+                travelPlans.Add(travelPlan);
 
                 travelPlanDTO.Id = travelPlan.Id;
 

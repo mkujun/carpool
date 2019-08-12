@@ -37,14 +37,13 @@ namespace Carpool
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddTransient<IEmployeeRepository, FakeEmployeeRepository>();
             services.AddScoped<IEmployeeRepository, FakeEmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddScoped<ICarRepository, FakeCarRepository>();
             services.AddScoped<ICarService, CarService>();
+            //services.AddTransient<IEmployeeRepository, FakeEmployeeRepository>();
 
-            //services.AddSingleton<ITravelPlanRepository, FakeTravelPlanRepository>();
             services.AddSingleton<ITravelPlanRepository, FakeTravelPlanRepository>();
             services.AddSingleton<ITravelPlanService, TravelPlanService>();
 
