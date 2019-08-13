@@ -153,6 +153,19 @@ namespace Carpool.Controllers
         [HttpPost]
         public IActionResult SaveRide([FromBody] TravelPlanDTO data)
         {
+            bool employeeAlreadyOnTheRoad = false;
+
+            foreach (var employee in data.ListOfPassengersIds)
+            {
+                employeeAlreadyOnTheRoad = _travelPlanService.IsEmployeeOnTheRide(data.StartDate, data.EndDate, employee);
+            }
+
+            if (employeeAlreadyOnTheRoad)
+            {
+                data.Error = "One or more selected employees are already on the ride";
+                return Json(data);
+            }
+
             bool hasLicense = _employeeService.HasDriverLicense(data.ListOfPassengersIds);
 
             if (!hasLicense)

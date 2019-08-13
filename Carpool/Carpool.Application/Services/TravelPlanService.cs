@@ -169,5 +169,25 @@ namespace Carpool.Application.Services
         {
             return TravelPlans;
         }
+
+        public bool IsEmployeeOnTheRide(DateTime startDate, DateTime endDate, int employeeId)
+        {
+            foreach (var travelPlan in TravelPlans)
+            {
+                // get all travel plans that are in that period (between start date and end date)
+                if (startDate < travelPlan.EndDate && travelPlan.EndDate > endDate)
+                {
+                    foreach (var employee in travelPlan.SelectedEmployees)
+                    {
+                        if (employee.Id == employeeId)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }
