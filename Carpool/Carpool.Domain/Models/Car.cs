@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Carpool.Models
+﻿namespace Carpool.Domain.Models
 {
     public class Car
     {
@@ -12,7 +7,7 @@ namespace Carpool.Models
 
         }
 
-        public Car(string name, string carType, string color, string plates, int numberOfSeats) 
+        public Car(string name, string carType, string color, string plates, int numberOfSeats)
         {
             Name = name;
             CarType = carType;

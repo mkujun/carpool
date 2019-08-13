@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using Carpool.Domain.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Carpool.Models
 {

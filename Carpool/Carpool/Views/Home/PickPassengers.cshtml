@@ -1,4 +1,4 @@
-﻿@model TravelPlan
+﻿@model Carpool.Application.TravelPlanDTO
 @{
     ViewData["Title"] = "PickPassengers";
 }
@@ -8,7 +8,7 @@
         Create travel plan
     </div>
     <div class="card-body">
-        <h5 class="card-title">Select passangers</h5>
+        <h5 class="card-title">Select passengers</h5>
 
     <div class="form-group">
         <div class="row">
@@ -24,19 +24,41 @@
         </div>
     </div>
     <div class="form-group">
-        <table class="table col-md-8" id="employeeOnRideTable">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Employee Id</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <table class="table" id="employeeOnRideTable">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="width: 25%">Id</th>
+                            <th scope="col" style="width: 50%">Name</th>
+                            <th scope="col" style="width: 15%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
         <button type="button" id ="createRide" class="btn btn-primary">Create ride</button>
+    </div>
+</div>
+
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Carpool error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -53,7 +75,7 @@
                 var employeeName = selectedEmployees[i].name;
                 var employeeId = selectedEmployees[i].id;
 
-                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+                $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btn btn-warning">Delete</td></tr>');
 
                 employeeList.push(employeeId);
             }
@@ -88,18 +110,17 @@
                 });
 
                 if (alreadyOnList) {
-                    alert("Employee is already on list");
+                    $('#modalBody').html("Selected passenger is already on the list!");
+                    $('#warningModal').modal('toggle');
                 }
                 else {
-                    $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btnDelete">Delete</td></tr>');
+                    $('#employeeOnRideTable').append('<tr><td>' + employeeId + '</td><td>' + employeeName + '</td><td><button class="btn btn-warning">Delete</td></tr>');
 
                     employeeList.push(employeeId);
                 }
-
             });
 
-            $("#employeeOnRideTable").on("click", ".btnDelete", function () {
-
+            $("#employeeOnRideTable").on("click", ".btn", function () {
                 var employeeId = $(this).closest("tr").children()[0].innerText;
 
                 for (var i = 0; i < employeeList.length; i++) {
@@ -121,7 +142,8 @@
                     },
                     success: function (response) {
                         if (response.error != null) {
-                            alert(response.error);
+                            $('#modalBody').html(response.error);
+                            $('#warningModal').modal('toggle');
                         }
                         else {
                             window.location.assign("/Home/Carpools");

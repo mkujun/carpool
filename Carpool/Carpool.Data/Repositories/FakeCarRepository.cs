@@ -1,14 +1,13 @@
-﻿using Carpool.Interfaces;
-using Carpool.Models;
-using System;
+﻿using Carpool.Domain;
+using Carpool.Domain.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Carpool.Repositories
+namespace Carpool.Data
 {
     public class FakeCarRepository : ICarRepository
     {
+        // ef context goes here for more complex requirements...
+
         public IEnumerable<Car> Cars => new List<Car>
         {
             new Car { Name = "Mustang", CarType = "Ford Mustang", Color = "Red", NumberOfSeats = 2, Plates = "RI 123-AB" },
@@ -23,45 +22,9 @@ namespace Carpool.Repositories
             new Car { Name = "Mini", CarType = "Mini Morris", Color = "Brown", NumberOfSeats = 2, Plates = "KA 126-CA" }
         };
 
-        public bool CanFitIntoACar(string licensePlates, int[] employeesIds)
+        public IEnumerable<Car> GetCars()
         {
-            Car car = GetCar(licensePlates);
-
-            if(car != null)
-            {
-                if(car.NumberOfSeats < employeesIds.Length)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool CanFitIntoACar(string licensePlates, List<Employee> selectedEmployees)
-        {
-            Car car = GetCar(licensePlates);
-
-            if(car != null)
-            {
-                if(car.NumberOfSeats < selectedEmployees.Count)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public Car GetCar(string licensePlates)
-        {
-            Car car = Cars.Where(c => c.Plates == licensePlates).FirstOrDefault();
-
-            return car;
+            return Cars;
         }
     }
 }

@@ -12,4 +12,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Carpool.Application\Carpool.Application.csproj" />
+    <ProjectReference Include="..\Carpool.Data\Carpool.Data.csproj" />
+    <ProjectReference Include="..\Carpool.Domain\Carpool.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
