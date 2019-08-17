@@ -3,7 +3,7 @@ using Carpool.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Carpool.Application
+namespace Carpool.Application.Services
 {
     public class CarService : ICarService
     {
